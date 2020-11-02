@@ -45,12 +45,10 @@ class App
 
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
-                var_dump('NOT FOUND');die;
+                throw new \Exception('L\'url spécifiée n\'a pas été trouvée !', 404);
                 break;
             case Dispatcher::METHOD_NOT_ALLOWED:
-                var_dump('NOT ALLOWED');die;
-                $allowedMethods = $routeInfo[1];
-                // ... 405 Method Not Allowed
+                throw new \Exception('Méthode non autorisée', 401);
                 break;
             case Dispatcher::FOUND:
                 [,$action, $vars] = $routeInfo;

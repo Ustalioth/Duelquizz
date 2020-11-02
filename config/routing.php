@@ -9,7 +9,3 @@ return [
     new Route('/user/{userName}', User::class, 'GET'),
 ];
 
-
-
-
-?>

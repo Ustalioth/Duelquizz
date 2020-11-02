@@ -2,11 +2,17 @@
 
 namespace App\Action;
 
-class Home
+use App\Core\Controller\AbstractController;
+
+class Home extends AbstractController
 {
     public function __invoke()
     {
-        return 'Yes it is working!';
+        // télécharger twig
+        // intégrer twig de la manière suivante
+        return $this->render('home.html.twig', [
+            'message' => 'Hello the World!'
+        ]);
     }
 }
 
