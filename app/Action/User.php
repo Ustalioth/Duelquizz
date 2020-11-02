@@ -2,12 +2,14 @@
 
 namespace App\Action;
 
-class User
+use App\Core\Controller\AbstractController;
+
+class User extends AbstractController
 {
     public function __invoke(string $userName)
     {
-        //TODO: refactor this class using twig template
-        return 'Bonjour ' . $userName;
+        return $this->render('users/user.html.twig', [
+            'name' => $userName
+        ]);
     }
 }
-
