@@ -1,6 +1,5 @@
 # Pour le 04/11
 
-- Ajouter l'utilisation du layout dans le fichier home.html.twig
 - Ecrire un validateur capable de valider des entités. Ce genre de code devrait fonctionner : 
 
 ```php
