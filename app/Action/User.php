@@ -11,7 +11,8 @@ class User extends AbstractController
     public function __invoke(string $userName)
     {
         $user = new UserEntity();
-        $user->setUsername('Joh n');
+        $user->setUsername('John');
+        $user->setFirstName('Boris');
         $user->setEmail('boris@boris.fr');
 
         $validator = new Validator();
@@ -21,9 +22,7 @@ class User extends AbstractController
             // afficher erreurs
             echo '<pre>';print_r($validator->getErrors());die;
         } else {
-            // enregistrer en base de données
-            $connection = $this->getConnection(); // get a PDO instance (singleton, les infos de la bdd (username, password) sont à mettre en config)
-            // faire notre requête SQL pour insérer en base de données
+            $connection = $this->getConnection();
         }
 
         return $this->render('users/user.html.twig', [
