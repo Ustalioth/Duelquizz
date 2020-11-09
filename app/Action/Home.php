@@ -8,7 +8,6 @@ class Home extends AbstractController
 {
     public function __invoke()
     {
-        return $this->render('home.html.twig');
+        return $this->render('home.html.twig', $this->getRequest()->getQueryParams());
     }
 }
-

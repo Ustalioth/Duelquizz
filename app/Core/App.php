@@ -2,21 +2,23 @@
 
 namespace App\Core;
 
+use App\Core\Controller\AbstractController;
 use App\Core\Routing\Route;
 use FastRoute\Dispatcher;
 use function FastRoute\simpleDispatcher;
 use FastRoute\RouteCollector;
+use Psr\Http\Message\ServerRequestInterface;
 
 class App
 {
     protected $rootDir = __DIR__ . '/../..';
 
-    public function handle()
+    public function handle(ServerRequestInterface $request)
     {
-        echo $this->disptach();
+        echo $this->disptach($request);
     }
 
-    protected function disptach(): string
+    protected function disptach(ServerRequestInterface $request): string
     {
         /** @var Route[] $routes */
         $routes = require($this->rootDir . '/config/routing.php');
@@ -57,7 +59,15 @@ class App
                     throw new \RuntimeException('Class ' . $action . 'does not exists!');
                 }
 
-                return call_user_func_array(new $action(), $vars);
+                $instance = new $action();
+
+                if (!$instance instanceof AbstractController) {
+                    throw new \LogicException('Action must be an instance of AbstractController');
+                }
+
+                $instance->setRequest($request);
+
+                return call_user_func_array($instance, $vars);
                 break;
         }
 
