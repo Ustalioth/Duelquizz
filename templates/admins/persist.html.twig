@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    {% if admin is not null %}
+        Modification de "{{ admin.username }}"
+    {% else %}
+        Création d'un admin
+    {% endif %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <p class="text-center">
+            <a href="/delete-admin/{{ admin.id }}" class="btn btn-danger">Supprimer</a>
+        </p>
+
+        {% set formUrl="/admin" %}
+
+        {% if admin is not null %}
+            {% set formUrl="/admin/" ~ admin.id %}
+        {% endif %}
+
+        <form action="{{ formUrl }}" method="post">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" class="form-control" id="username" name="username" value="{% if admin is not null %}{{ admin.username }}{% endif %}">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Valider</button>
+        </form>
+    </div>
+{% endblock %}

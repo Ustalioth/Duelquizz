@@ -1,0 +1,39 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Liste des administrateur{% endblock %}
+
+{% block body %}
+
+    <p class="text-center">
+        <a href="/admin" class="btn btn-success">Nouvel administrateur</a>
+    </p>
+
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom d'utilisateur</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for admin in admins %}
+                <tr>
+                    <th scope="row">{{ admin.id }}</th>
+                    <td>{{ admin.username }}</td>
+                    <td>
+                        <a href="/admin/{{ admin.id }}">modifier</a> -
+                        <a href="#" data-id="{{ admin.id }}" class="delete-admin">supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="/js/admin.js"></script>
+{% endblock %}

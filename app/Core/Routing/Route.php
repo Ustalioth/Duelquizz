@@ -7,17 +7,20 @@ class Route
 
     protected $action;
 
-    protected string $method;
+    protected array $method;
 
 
     public function __construct(
         string $path,
         string $action,
-        ?string $method = 'GET'
+        $method = 'GET'
     ) {
+        $method = (array)$method;
+        $method = array_map('strtoupper', $method);
+
         $this->path = $path;
         $this->action = $action;
-        $this->method = strtoupper($method);
+        $this->method = $method;
     }
 
     public function getPath(): string
@@ -30,8 +33,8 @@ class Route
         return $this->action;
     }
 
-    public function getMethod(): ?string
+    public function getMethod(): array
     {
-        return $this->method ?: 'GET';
+        return $this->method ?: ['GET'];
     }
 }
