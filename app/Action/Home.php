@@ -8,6 +8,10 @@ class Home extends AbstractController
 {
     public function __invoke()
     {
-        return $this->render('home.html.twig', $this->getRequest()->getQueryParams());
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        return $this->render('home.html.twig', ['isAdmin' => $_SESSION['isAdmin'], 'firstname' => $_SESSION['firstName'], 'lastname' => $_SESSION['lastName']]);
     }
 }

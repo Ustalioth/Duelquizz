@@ -8,13 +8,23 @@ class AdminList extends AbstractController
 {
     public function __invoke()
     {
-        $connection = $this->getConnection();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-        $sql = 'select * from admins';
-        $statement = $connection->query($sql);
+        if (isset($_SESSION['isAdmin'])) {
+            if ($_SESSION['isAdmin'] === true) {
+                $connection = $this->getConnection();
 
-        $admins = $statement->fetchAll(\PDO::FETCH_ASSOC);
+                $sql = 'select * from admins';
+                $statement = $connection->query($sql);
 
-        return $this->render('admins/list.html.twig', ['admins' => $admins]);
+                $admins = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+                return $this->render('admins/list.html.twig', ['admins' => $admins]);
+            } else {
+                return $this->render('admins/list.html.twig', ['msg' => 'Vous n\'êtes pas administrateur et ne pouvez donc pas acceder à cette page']);
+            }
+        }
     }
 }

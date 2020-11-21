@@ -4,6 +4,11 @@
 
 {% block body %}
 
+    {% if msg is defined %}
+        <p>{{ msg }}<p>
+
+    {% else %}
+
     <p class="text-center">
         <a href="/admin" class="btn btn-success">Nouvel administrateur</a>
     </p>
@@ -13,7 +18,8 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Nom d'utilisateur</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -21,7 +27,8 @@
             {% for admin in admins %}
                 <tr>
                     <th scope="row">{{ admin.id }}</th>
-                    <td>{{ admin.username }}</td>
+                    <td>{{ admin.firstName }}</td>
+                    <td>{{ admin.lastName }}</td>
                     <td>
                         <a href="/admin/{{ admin.id }}">modifier</a> -
                         <a href="#" data-id="{{ admin.id }}" class="delete-admin">supprimer</a>
@@ -31,6 +38,8 @@
             </tbody>
         </table>
     </div>
+
+    {% endif %}  
 
 {% endblock %}
 

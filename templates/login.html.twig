@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1>Page de connexion</h1>
+
+        <form action="login" method="POST">
+            <input type="text" name="email" placeholder="Adresse mail">
+            <input type="password" name="password" placeholder="Mot de passe">
+            <input type="submit">
+        </form>
+
+        {% if msg is not null %}
+            {{ msg }}
+        {% endif %}
+    </div>
+
+    
+{% endblock %}
