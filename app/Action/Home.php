@@ -12,6 +12,10 @@ class Home extends AbstractController
             session_start();
         }
 
+        if (!isset($_SESSION['id'])) {
+            return $this->render('login.html.twig', $this->getRequest()->getQueryParams());
+        }
+
         return $this->render('home.html.twig', ['isAdmin' => $_SESSION['isAdmin'], 'firstname' => $_SESSION['firstName'], 'lastname' => $_SESSION['lastName']]);
     }
 }
