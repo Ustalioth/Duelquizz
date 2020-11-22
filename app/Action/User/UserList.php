@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action;
+namespace App\Action\User;
 
 use App\Core\Controller\AbstractController;
 
@@ -18,7 +18,7 @@ class UserList extends AbstractController
 
                 $users = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-                return $this->render('users/list.html.twig', ['users' => $users]);
+                return $this->render('users/list.html.twig', ['users' => $users, 'isAdmin' => $_SESSION['isAdmin']]);
             } else {
                 return $this->render('users/list.html.twig', ['msg' => 'Vous n\'êtes pas administrateur et ne pouvez donc pas acceder à cette page']);
             }

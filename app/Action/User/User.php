@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action;
+namespace App\Action\User;
 
 use App\Core\Controller\AbstractController;
 use App\Entity\User as UserEntity;
@@ -20,7 +20,9 @@ class User extends AbstractController
 
         if (!$isValid) {
             // afficher erreurs
-            echo '<pre>';print_r($validator->getErrors());die;
+            echo '<pre>';
+            print_r($validator->getErrors());
+            die;
         } else {
             $connection = $this->getConnection();
         }

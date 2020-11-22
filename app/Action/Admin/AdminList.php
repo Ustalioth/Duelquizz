@@ -18,7 +18,7 @@ class AdminList extends AbstractController
 
                 $admins = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-                return $this->render('admins/list.html.twig', ['admins' => $admins]);
+                return $this->render('admins/list.html.twig', ['admins' => $admins, 'isAdmin' => $_SESSION['isAdmin']]);
             } else {
                 return $this->render('admins/list.html.twig', ['msg' => 'Vous n\'êtes pas administrateur et ne pouvez donc pas acceder à cette page']);
             }

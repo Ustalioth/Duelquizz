@@ -9,8 +9,8 @@ use App\Action\Admin\Persist as PersistAdmin;
 use App\Action\Theme\ThemeList;
 use App\Action\Theme\Delete as DeleteTheme;
 use App\Action\Theme\Persist as PersistTheme;
-use App\Action\User;
-use App\Action\UserList;
+use App\Action\User\User;
+use App\Action\User\UserList;
 use App\Core\Routing\Route;
 
 return [
