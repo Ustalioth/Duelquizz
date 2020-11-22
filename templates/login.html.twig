@@ -6,10 +6,18 @@
     <div class="container-fluid">
         <h1>Page de connexion</h1>
 
-        <form action="login" method="POST">
-            <input type="text" name="email" placeholder="Adresse mail">
-            <input type="password" name="password" placeholder="Mot de passe">
-            <input type="submit">
+        <form class="form-group" action="login" method="POST">
+
+            <label for="email">Adresse mail</label>
+            <input class="form-control" type="text" name="email">
+
+            <label for="password">Mot de passe</label>
+            <input class="form-control" type="password" name="password">
+
+            <label for="remember">Se souvenir de moi</label>
+            <input type="checkbox" name="remember">
+
+            <input class="form-control" class="btn btn-primary" type="submit">
         </form>
 
         {% if msg is not null %}

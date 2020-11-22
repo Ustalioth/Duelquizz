@@ -9,10 +9,6 @@ class Persist extends AbstractController
     public function __invoke(int $id = null)
     {
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
         if (isset($_SESSION['isAdmin'])) {
             if ($_SESSION['isAdmin'] === true) {
                 $connection = $this->getConnection();

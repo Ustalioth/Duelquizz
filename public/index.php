@@ -1,9 +1,14 @@
 <?php
+
 use App\Core\App;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
 
 require_once __DIR__ . '/../vendor/autoload.php';
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 $psr17Factory = new Psr17Factory();
 

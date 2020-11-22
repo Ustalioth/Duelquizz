@@ -34,4 +34,22 @@ abstract class AbstractController
 
         return $this;
     }
+
+    public function setSessionData($email, $id, $firstName, $lastName, $isAdmin)
+    {
+        $_SESSION['email'] = $email;
+        $_SESSION['id'] = $id;
+        $_SESSION['firstName'] = $firstName;
+        $_SESSION['lastName'] = $lastName;
+        $_SESSION['isAdmin'] = $isAdmin;
+    }
+
+    public function setAuthCookie($id = null, $email = null, $password = null)
+    {
+        if ($id !== null) {
+            setcookie('auth', $id . '-----' . sha1($email . $password), time() + 3600 * 24 * 3, '', '', false, true);
+        } else {
+            setcookie('auth', '', time() + 3600 * 24 * 3, '', '', false, true); // Pas de valeur donc on supprime le cookie (qui était invalide)
+        }
+    }
 }

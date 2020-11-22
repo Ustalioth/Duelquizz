@@ -14,13 +14,13 @@ class Login extends AbstractController
         $request = $this->getRequest();
 
         if (isset($_POST['email'])) {
+
             $formParams = $request->getParsedBody();
 
             $sql = $connection->prepare("SELECT * FROM admins WHERE email = :email");
             $sql->bindParam(':email', $_POST['email']);
 
             if ($sql->execute()) {
-                $result = $sql->execute();
 
                 if ($sql->rowCount() < 1) { //Aucun admin n'a été trouvé
                     $sql = $connection->prepare("SELECT * FROM users WHERE email = :email"); //On effectue donc la requête dans la table user
@@ -35,12 +35,12 @@ class Login extends AbstractController
                             ]);
                         } else if ($sql->rowCount() === 1) { //Utilisateur trouvé
                             if (password_verify($_POST['password'], $result['password'])) { //Test mot de passe
-                                session_start();
-                                $_SESSION['email'] = $result['email'];
-                                $_SESSION['id'] = $result['id'];
-                                $_SESSION['firstName'] = $result['firstName'];
-                                $_SESSION['lastName'] = $result['lastName'];
-                                $_SESSION['isAdmin'] = false;
+                                $this->setSessionData($result['email'], $result['id'], $result['firstName'], $result['lastName'], false);
+
+
+                                if (isset($_POST['remember'])) {
+                                    $this->setAuthCookie($_SESSION['id'], $_SESSION['email'], $_SESSION['password']);
+                                }
 
                                 header('Location: /');
                                 exit(0);
@@ -57,12 +57,12 @@ class Login extends AbstractController
                     $result = $sql->fetch();
 
                     if (password_verify($_POST['password'], $result['password'])) {
-                        session_start();
-                        $_SESSION['email'] = $result['email'];
-                        $_SESSION['id'] = $result['id'];
-                        $_SESSION['firstName'] = $result['firstName'];
-                        $_SESSION['lastName'] = $result['lastName'];
-                        $_SESSION['isAdmin'] = true;
+                        $this->setSessionData($result['email'], $result['id'], $result['firstName'], $result['lastName'], true);
+
+
+                        if (isset($_POST['remember'])) {
+                            $this->setAuthCookie($_SESSION['id'], $_SESSION['email'], $_SESSION['password']);
+                        }
 
                         header('Location: /');
                         exit(0);
