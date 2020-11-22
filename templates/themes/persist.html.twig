@@ -1,0 +1,47 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    {% if theme is not null %}
+        Modification de "{{ theme.name}}"
+    {% else %}
+        Création d'un theme
+    {% endif %}
+
+{% endblock %}
+
+{% block body %}
+
+
+    {% if msg is defined %}
+        <p>{{ msg }}<p>
+
+    {% else %}
+
+        <div class="container">
+
+        {% if theme is not null %}
+            <p class="text-center">
+                <a href="/delete-theme/{{ theme.id }}" class="btn btn-danger">Supprimer</a>
+            </p>
+        {% endif %}
+
+        {% set formUrl="/theme" %}
+
+        {% if theme is not null %}
+            {% set formUrl="/theme/" ~ theme.id %}
+        {% endif %}
+
+        <form action="{{ formUrl }}" method="post">
+            <div class="form-group">
+                <label for="name">Nom</label>
+                <input type="text" class="form-control" id="name" name="name" value="{% if theme is not null %}{{ theme.name }}{% endif %}">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Valider</button>
+        </form>
+    </div>
+
+    {% endif %}
+
+    
+{% endblock %}

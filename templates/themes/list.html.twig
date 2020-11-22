@@ -1,0 +1,45 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Liste des thèmes{% endblock %}
+
+{% block body %}
+
+    {% if msg is defined %}
+        <p>{{ msg }}<p>
+
+    {% else %}
+
+    <p class="text-center">
+        <a href="/theme" class="btn btn-success">Nouveau thème</a>
+    </p>
+
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for theme in themes %}
+                <tr>
+                    <th scope="row">{{ theme.id }}</th>
+                    <td>{{ theme.name }}</td>
+                    <td>
+                        <a href="/theme/{{ theme.id }}">modifier</a> -
+                        <a href="#" data-id="{{ theme.id }}" class="delete-theme">supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% endif %}  
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
