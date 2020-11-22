@@ -1,0 +1,41 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+
+    {% if msg is defined %}
+        <p>{{ msg }}<p>
+
+    {% else %}
+
+    <p class="text-center">Liste utilisateurs</p>
+
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <th scope="row">{{ user.id }}</th>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.lastName }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% endif %}  
+
+{% endblock %}
+
+{% block js %}
+    <script src="/js/user.js"></script>
+{% endblock %}
