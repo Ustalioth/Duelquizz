@@ -1,0 +1,61 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    {% if question is not null %}
+        Modification de la question "{{ question.label}}"
+    {% else %}
+        Création d'une question
+    {% endif %}
+
+{% endblock %}
+
+{% block body %}
+
+
+    {% if msg is defined %}
+        <p>{{ msg }}<p>
+
+    {% else %}
+
+        <div class="container">
+
+        {% if question is not null %}
+            <p class="text-center">
+                <a href="/delete-question/{{ question.id }}" class="btn btn-danger">Supprimer</a>
+            </p>
+        {% endif %}
+
+        {% set formUrl="/question" %}
+
+        {% if question is not null %}
+            {% set formUrl="/question/" ~ question.id %}
+        {% endif %}
+
+        <form action="{{ formUrl }}" method="post">
+            <div class="form-group">
+                <label for="label">Label</label>
+                <input type="text" class="form-control" id="label" name="label" value="{% if question is not null %}{{ question.label }}{% endif %}">
+
+                <label for="theme">Theme</label>
+                <select class="form-control" id="theme" name="theme">
+                    {% for theme in themes %} 
+                    {# Sert à sélectionner par défaut le thème qui correspond à la question #}
+                        {% if theme.id == correspondingTheme.id %}
+                            <option selected value="{{theme.id}}">{{theme.name}}</option> 
+                        {% else %}
+                            <option value="{{theme.id}}">{{theme.name}}</option>
+                        {% endif %}        
+                        
+                    {% endfor %}       
+                </select>
+                {# <input value="{% if question is not null %}{{ question.theme }}{% endif %}"> #}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Valider</button>
+        </form>
+    </div>
+
+    {% endif %}
+
+    
+{% endblock %}

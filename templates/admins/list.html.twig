@@ -6,7 +6,6 @@
 
     {% if msg is defined %}
         <p>{{ msg }}<p>
-
     {% else %}
 
     <p class="text-center">
@@ -44,5 +43,9 @@
 {% endblock %}
 
 {% block js %}
-    <script src="/js/admin.js"></script>
+    <script src="/js/handleDelete.js"></script>
+    <script>
+        Delete(".delete-admin", "admin");
+        console.log("called");
+    </script>
 {% endblock %}
