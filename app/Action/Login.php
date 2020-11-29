@@ -15,8 +15,6 @@ class Login extends AbstractController
 
         if (isset($_POST['email'])) {
 
-            $formParams = $request->getParsedBody();
-
             $sql = $connection->prepare("SELECT * FROM admins WHERE email = :email");
             $sql->bindParam(':email', $_POST['email']);
 
@@ -31,7 +29,7 @@ class Login extends AbstractController
 
                         if ($sql->rowCount() < 1) { //Adresse mail ne correspond à rien dans la BDD donc mauvaise adresse mail
                             return $this->render('login.html.twig', [
-                                'msg' => 'Adresse mail incorrecte'
+                                'msg' => 'Adresse mail incorrecte', 'isLogin' => 'true'
                             ]);
                         } else if ($sql->rowCount() === 1) { //Utilisateur trouvé
                             if (password_verify($_POST['password'], $result['password'])) { //Test mot de passe
@@ -46,7 +44,7 @@ class Login extends AbstractController
                                 exit(0);
                             } else {
                                 return $this->render('login.html.twig', [
-                                    'msg' => 'Mot de passe incorrect'
+                                    'msg' => 'Mot de passe incorrect', 'isLogin' => 'true'
                                 ]);
                             }
                         } else { //Plus de un utilisateur trouvé, ça ne devrait pas arriver...
@@ -68,7 +66,7 @@ class Login extends AbstractController
                         exit(0);
                     } else {
                         return $this->render('login.html.twig', [
-                            'msg' => 'Mot de passe incorrect'
+                            'msg' => 'Mot de passe incorrect', 'isLogin' => 'true'
                         ]);
                     }
                 } else {
@@ -77,7 +75,7 @@ class Login extends AbstractController
             }
         } else {
             return $this->render('login.html.twig', [
-                'msg' => 'Pas de POST'
+                'msg' => 'Pas de POST', 'isLogin' => 'true'
             ]);
         }
     }

@@ -15,17 +15,21 @@ class QuizzList extends AbstractController
                 $request = $this->getRequest();
                 $formParams = $request->getParsedBody();
 
-                if($formParams!==null){
+                if ($formParams !== null) {
                     $sql = "SELECT DISTINCT * FROM users, quizzes WHERE
                     quizzes.user1 = users.id OR quizzes.user2 = users.id AND
-                    users.firstName LIKE '%$formParams[search]%'  OR 
-                    users.lastName LIKE '%$formParams[search]%'  OR 
-                    users.email LIKE '%$formParams[search]%'";
+                    users.firstName LIKE '%:search%'  OR 
+                    users.lastName LIKE '%:search%'  OR 
+                    users.email LIKE '%:search%'";
 
-                }
-                else{
+                    $statement = $connection->prepare($sql);
+
+                    $statement->bindParam(':search', $formParams['search']);
+
+                    $statement->execute();
+                } else {
                     $sql = 'select * from quizzes';
-                }  
+                }
                 $statement = $connection->prepare($sql);
 
                 if ($statement->execute()) {
@@ -35,7 +39,6 @@ class QuizzList extends AbstractController
                 } else {
                     throw new \Exception('Quizz correspondant introuvable!');
                 }
-
             } else {
                 return $this->render('quizzes/list.html.twig', ['msg' => 'Vous n\'êtes pas administrateur et ne pouvez donc pas acceder à cette page']);
             }
