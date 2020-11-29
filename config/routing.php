@@ -11,9 +11,11 @@ use App\Action\Theme\Delete as DeleteTheme;
 use App\Action\Theme\Persist as PersistTheme;
 use App\Action\User\User;
 use App\Action\User\UserList;
+use App\Action\Quizz\QuizzList;
 use App\Action\Question\QuestionList;
 use App\Action\Question\Persist as PersistQuestion;
 use App\Action\Question\Delete as DeleteQuestion;
+use App\Action\Quizz\Search;
 use App\Core\Routing\Route;
 
 return [
@@ -25,6 +27,7 @@ return [
     new Route('/question[/{id}]', PersistQuestion::class, ['GET', 'POST']),
     new Route('/delete-question/{id}', DeleteQuestion::class, ['GET', 'DELETE']),
     new Route('/users', UserList::class, 'GET'),
+    new Route('/quizzes', QuizzList::class, ['POST', 'GET']),
     new Route('/disconnect', Disconnect::class, 'GET'),
     new Route('/login', Login::class, ['GET', 'POST']),
     new Route('/admin[/{id}]', PersistAdmin::class, ['GET', 'POST']),

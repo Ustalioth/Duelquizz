@@ -1,0 +1,59 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Liste Quizz{% endblock %}
+
+{% block body %}
+
+
+
+    {% if msg is defined %}
+        <p>{{ msg }}<p>
+
+    {% else %}
+    
+
+    <p class="text-center">Liste Quizzes</p>
+
+    {% set formUrl="/quizzes" %}
+
+        <form action="{{ formUrl }}" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Recherche" name="search" id="search">
+            </div>
+
+            <button type="submit" class="btn btn-primary">GO</button>   
+        </form>
+
+
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Mode</th>
+                <th scope="col">Questions</th>
+                <th scope="col">user1</th>
+                <th scope="col">user2</th>
+                <th scope="col">startAt</th>
+                <th scope="col">winner</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for quizz in quizzes %}
+                <tr>
+                    <th scope="row">{{ quizz.id }}</th>
+                    <td>{{ quizz.mode }}</td>
+                    <td>{{ quizz.questions }}</td>
+                    <td>{{ quizz.user1 }}</td>
+                    <td>{{ quizz.user2 }}</td>
+                    <td>{{ quizz.startAt }}</td>
+                    <td>{{ quizz.winner }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% endif %}  
+
+{% endblock %}
