@@ -26,11 +26,12 @@ class Delete extends AbstractController
         $statement->bindParam('id', $id, \PDO::PARAM_INT);
 
         if ($statement->execute()) {
-            if ($this->getRequest()->getMethod() === 'GET') {
-                header('Location: /questions');
-                exit(0);
+            if ($this->getQuestionPossibleAnswers($connection, $question, true)) {
+                if ($this->getRequest()->getMethod() === 'GET') {
+                    header('Location: /questions');
+                    exit(0);
+                }
             }
-
             exit(0);
         }
 

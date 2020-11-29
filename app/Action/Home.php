@@ -22,9 +22,10 @@ class Home extends AbstractController
                 $result = $sql->fetch();
 
                 $key = sha1($result['email'] . $result['password']);
+
                 if ($key === $auth[1]) { //admin retrouvé et cookie valide, on connecte l'admin
                     $this->setSessionData($result['email'], $result['id'], $result['firstName'], $result['lastName'], true);
-                    $this->setAuthCookie($_SESSION['id'], $_SESSION['email'], $_SESSION['password']); // On set à nouveau le cookie pour ajouter 3 jours à sa date de validité
+                    $this->setAuthCookie($_SESSION['id'], $_SESSION['email'], $result['password']); // On set à nouveau le cookie pour ajouter 3 jours à sa date de validité
                 } else {
                     // Cookie invalide peut-être que l'id correspond à un user et un admin
                     // On cherche aussi dans la table user
