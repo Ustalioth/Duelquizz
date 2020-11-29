@@ -35,8 +35,10 @@ class Persist extends AbstractController
 
                         $theme = $this->getQuestionTheme($connection, $question);
 
+                        $possibleanswers = $this->getQuestionPossibleAnswers($connection, $question);
+
                         return $this->render('questions/persist.html.twig', [
-                            'question' => $question, 'correspondingTheme' => $theme, 'themes' => $themes, 'isAdmin' => $_SESSION['isAdmin']
+                            'question' => $question, 'possibleanswers' => $possibleanswers, 'correspondingTheme' => $theme, 'themes' => $themes, 'isAdmin' => $_SESSION['isAdmin']
                         ]);
                     } else {
                         $sql = 'SELECT * FROM themes'; //On récupère tous les thèmes pr générer les options du select
@@ -52,14 +54,46 @@ class Persist extends AbstractController
                     $formParams = $request->getParsedBody();
 
                     if ($isCreation) {
+                        $correctExists = false;
+
+                        for ($i = 1; $i < 5; $i++) {
+                            if ($formParams['correct' . strval($i)] === '1') {
+                                $correctExists = true;
+                            }
+                        }
+
+                        if ($correctExists === false) {
+                            throw new \Exception('Au moins une des réponses doit être correcte !');
+                        }
+
                         $sql = 'INSERT INTO questions(label, theme) VALUES(?,?)';
                         $args = [$formParams['label'], $formParams['theme']];
+
+                        $statement = $connection->prepare($sql);
+
+
+                        if ($statement->execute($args)) {
+                            $lastestQuestion = $this->getLatestQuestion($connection);
+
+                            for ($i = 1; $i < 5; $i++) {
+                                $sql = 'INSERT INTO possibleanswers(question, label, correct) VALUES(?,?,?)';
+                                $args = [$lastestQuestion['id'],  $formParams['answer' . strval($i)], $formParams['correct' . strval($i)]];
+                                $statement = $connection->prepare($sql);
+
+                                if (!$statement->execute($args)) {
+                                    throw new \Exception('Une erreur est survenue!');
+                                }
+                            }
+                            header('Location: /questions');
+                            exit(0);
+
+                            throw new \Exception('Une erreur est survenue!');
+                        }
                     } else {
                         $sql = 'UPDATE questions SET label=?, theme=? WHERE id=?';
                         $args = [$formParams['label'], $formParams['theme'], $id];
                     }
 
-                    $statement = $connection->prepare($sql);
 
                     if ($statement->execute($args)) {
                         header('Location: /questions');

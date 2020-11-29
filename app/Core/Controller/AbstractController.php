@@ -87,9 +87,41 @@ abstract class AbstractController
 
         if ($statement->execute($args)) {
             $theme = $statement->fetch();
-
-
             return $theme;
+        } else {
+            throw new \Exception('Theme correspondant introuvable!');
+        }
+    }
+
+    public function getQuestionPossibleAnswers($connection, $question, $delete = false)
+    {
+        if ($delete === true) {
+            $sql = 'DELETE FROM possibleanswers WHERE possibleanswers.question = ?'; //On récupère le thème lié à une question
+            $args = [$question['id']];
+            $statement = $connection->prepare($sql);
+        } else {
+            $sql = 'SELECT * FROM possibleanswers WHERE possibleanswers.question = ?'; //On récupère le thème lié à une question
+            $args = [$question['id']];
+            $statement = $connection->prepare($sql);
+        }
+
+
+        if ($statement->execute($args) && $delete === false) {
+            $possibleanswers = $statement->fetchAll();
+            return $possibleanswers;
+        } else if ($statement->execute($args) && $delete === true) {
+            return true;
+        }
+        throw new \Exception('Erreur SQL !');
+    }
+
+    public function getLatestQuestion($connection)
+    {
+        $statement  = $connection->prepare('SELECT * FROM questions ORDER BY id DESC LIMIT 1'); //On récupère le thème lié à une question
+
+        if ($statement->execute()) {
+            $question = $statement->fetch();
+            return $question;
         } else {
             throw new \Exception('Theme correspondant introuvable!');
         }

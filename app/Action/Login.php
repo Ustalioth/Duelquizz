@@ -39,7 +39,7 @@ class Login extends AbstractController
 
 
                                 if (isset($_POST['remember'])) {
-                                    $this->setAuthCookie($_SESSION['id'], $_SESSION['email'], $_SESSION['password']);
+                                    $this->setAuthCookie($_SESSION['id'], $_SESSION['email'], $result['password']);
                                 }
 
                                 header('Location: /');
@@ -61,7 +61,7 @@ class Login extends AbstractController
 
 
                         if (isset($_POST['remember'])) {
-                            $this->setAuthCookie($_SESSION['id'], $_SESSION['email'], $_SESSION['password']);
+                            $this->setAuthCookie($_SESSION['id'], $_SESSION['email'], $result['password']);
                         }
 
                         header('Location: /');

@@ -9,12 +9,15 @@
 
 {% endblock %}
 
+{% block css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
 
 
     {% if msg is defined %}
         <p>{{ msg }}<p>
-
     {% else %}
 
         <div class="container">
@@ -45,10 +48,38 @@
                         {% else %}
                             <option value="{{theme.id}}">{{theme.name}}</option>
                         {% endif %}        
-                        
                     {% endfor %}       
                 </select>
-                {# <input value="{% if question is not null %}{{ question.theme }}{% endif %}"> #}
+
+                {% if possibleanswers is not null %}
+                    {% for possibleanswer in possibleanswers %}
+                        <label for="answer{{possibleanswer.id}}">Réponse {{loop.index}}</label>
+                        <input type="text" class="form-control" id="answer{{possibleanswer.id}}" name="answer{{possibleanswer.id}}" value="{{possibleanswer.label}}">
+                        <select class="form-control" >
+                        {% if possibleanswer.correct == "1" %}
+                                <option value="1" selected>Correcte</option>
+                                <option value="0">Incorrecte</option>
+                        {% else %}
+                                <option value="1">Correcte</option>
+                                <option value="0" selected>Incorrecte</option>
+                        {% endif %}
+                        <select>
+                    {% endfor %}
+
+                {% else %}
+                {% for i in range(1, 4) %}
+                   <label for="answer{{possibleanswer.id}}">Réponse {{loop.index}}</label>
+                        <input type="text" class="form-control" id="answer{{ loop.index }}" name="answer{{ loop.index }}">
+                        <select name="correct{{loop.index}}" class="form-control" >
+                            <option value="1">Correcte</option>
+                            <option value="0" selected>Incorrecte</option>
+                        <select>
+                {% endfor %}
+                    
+                {% endif %}
+
+
+                
             </div>
 
             <button type="submit" class="btn btn-primary">Valider</button>
@@ -59,3 +90,12 @@
 
     
 {% endblock %}
+
+{% block js %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="/js/select2use.js"></script>
+{% endblock %}
+
+
+
