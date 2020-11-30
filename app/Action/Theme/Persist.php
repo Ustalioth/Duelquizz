@@ -53,7 +53,7 @@ class Persist extends AbstractController
                 }
 
                 return $this->render('themes/persist.html.twig', [
-                    'theme' => $theme
+                    'theme' => $theme, 'isAdmin' => $_SESSION['isAdmin']
                 ]);
             } else {
                 return $this->render('themes/persist.html.twig', ['msg' => 'Vous n\'êtes pas administrateur et ne pouvez donc pas acceder à cette page']);

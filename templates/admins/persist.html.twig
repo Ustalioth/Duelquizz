@@ -34,11 +34,11 @@
         <form action="{{ formUrl }}" method="post">
             <div class="form-group">
                 <label for="lastName">Nom</label>
-                <input type="text" class="form-control" id="lastName" name="lastName" value="{% if admin is not null %}{{ admin.lastName }}{% endif %}">
+                <input type="text" class="form-control" id="lastName" name="lastName" value="{% if admin.lastName is not null %}{{ admin.lastName }}{% endif %}">
                 <label for="firstName">Prénom</label>
-                <input type="text" class="form-control" id="firstName" name="firstName" value="{% if admin is not null %}{{ admin.firstName }}{% endif %}">
+                <input type="text" class="form-control" id="firstName" name="firstName" value="{% if admin.firstName is not null %}{{ admin.firstName }}{% endif %}">
                 <label for="email">Adresse mail</label>
-                <input type="text" class="form-control" id="email" name="email" value="{% if admin is not null %}{{ admin.email }}{% endif %}">
+                <input type="text" class="form-control" id="email" name="email" value="{% if admin.email is not null %}{{ admin.email }}{% endif %}">
                 <label for="password">Mot de passe</label>
                 <input type="password" class="form-control" id="password" name="password">
                 <label for="passwordConf">Confirmation de mot de passe</label>
@@ -47,9 +47,8 @@
 
             <button type="submit" class="btn btn-primary">Valider</button>
         </form>
-    </div>
-
+        {% if info is defined %}
+            <p>{{ info }}<p>
+        {% endif %}
     {% endif %}
-
-    
 {% endblock %}

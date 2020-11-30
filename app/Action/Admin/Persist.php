@@ -35,6 +35,23 @@ class Persist extends AbstractController
                 if ($request->getMethod() === 'POST') {
                     $formParams = $request->getParsedBody();
 
+                    if (strlen($formParams['firstName']) > 100 || strlen($formParams['lastName']) > 100 || strlen($formParams['email']) > 100) {
+                        return $this->render('admins/persist.html.twig', ['info' => 'Le nom, le prénom et le mot de passe doivent faire moins de 100 caractères.', 'isAdmin' => $_SESSION['isAdmin']]);
+                    }
+
+                    if (!filter_var($formParams['email'], FILTER_VALIDATE_EMAIL)) {
+                        $admin['firstName'] = $formParams['firstName'];
+                        $admin['lastName'] = $formParams['lastName'];
+                        return $this->render('admins/persist.html.twig', ['info' => 'Email invalide', 'isAdmin' => $_SESSION['isAdmin'], 'admin' => $admin]);
+                    }
+
+                    if ($formParams['password'] !== $formParams['passwordConf']) {
+                        $admin['firstName'] = $formParams['firstName'];
+                        $admin['lastName'] = $formParams['lastName'];
+                        $admin['email'] = $formParams['email'];
+                        return $this->render('admins/persist.html.twig', ['info' => 'Le mot de passe et la confirmation de mot de passe ne correspondent pas', 'isAdmin' => $_SESSION['isAdmin']]);
+                    }
+
                     $hashed = password_hash($formParams['password'], PASSWORD_DEFAULT);
                     $today = date('Y-m-d');
 
@@ -57,7 +74,7 @@ class Persist extends AbstractController
                 }
 
                 return $this->render('admins/persist.html.twig', [
-                    'admin' => $admin
+                    'admin' => $admin, 'isAdmin' => $_SESSION['isAdmin']
                 ]);
             } else {
                 return $this->render('admins/persist.html.twig', ['msg' => 'Vous n\'êtes pas administrateur et ne pouvez donc pas acceder à cette page']);
