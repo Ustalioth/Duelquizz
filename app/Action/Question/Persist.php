@@ -23,17 +23,15 @@ class Persist extends AbstractController
                     $question = $this->getQuestion([$id], $connection);
                 }
 
+                $themes = $this->getAllthemes($connection);
+
+                $theme = $this->getQuestionTheme($connection, $question);
 
                 $request = $this->getRequest();
-
 
                 if ($request->getMethod() === 'GET') {
                     if ($isCreation === false) {
                         $question = $this->getQuestion([$id], $connection);
-
-                        $themes = $this->getAllthemes($connection);
-
-                        $theme = $this->getQuestionTheme($connection, $question);
 
                         $possibleanswers = $this->getQuestionPossibleAnswers($connection, $question);
 
@@ -51,20 +49,32 @@ class Persist extends AbstractController
                         ]);
                     }
                 } else {
+
                     $formParams = $request->getParsedBody();
 
-                    if ($isCreation) {
-                        $correctExists = false;
+                    $correctAnswers = 0;
 
-                        for ($i = 1; $i < 5; $i++) {
+                    for ($i = 1; $i < 5; $i++) {
+                        if (isset($formParams['correct' . strval($i)])) {
                             if ($formParams['correct' . strval($i)] === '1') {
-                                $correctExists = true;
+                                $correctAnswers++;
                             }
                         }
+                    }
 
-                        if ($correctExists === false) {
-                            throw new \Exception('Au moins une des réponses doit être correcte !');
+                    if ($correctAnswers !== 1) {
+                        $question['label'] = $formParams['label'];
+                        $theme['id'] = $formParams['theme'];
+                        $possibleanswers = [];
+                        for ($i = 1; $i < 5; $i++) {
+                            $possibleanswers[$i]['label'] = $formParams['answer' . $i];
+                            $possibleanswers[$i]['correct'] = $formParams['correct' . strval($i)];
                         }
+
+                        return $this->render('questions/persist.html.twig', ['info' => 'Une et une seule réponse doit être correcte !', 'question' => $question, 'theme' => $theme, 'possibleanswers' => $possibleanswers, 'isAdmin' => true, 'correspondingTheme' => $theme, 'correspondingTheme' => $theme, 'themes' => $themes,]);
+                    }
+
+                    if ($isCreation) {
 
                         $sql = 'INSERT INTO questions(label, theme) VALUES(?,?)';
                         $args = [$formParams['label'], $formParams['theme']];
@@ -89,20 +99,33 @@ class Persist extends AbstractController
 
                             throw new \Exception('Une erreur est survenue!');
                         }
+                        throw new \Exception('Une erreur est survenue!');
                     } else {
-                        $sql = 'UPDATE questions SET label=?, theme=? WHERE id=?';
+                        $statement = $connection->prepare('UPDATE questions SET label=?, theme=? WHERE id=?');
                         $args = [$formParams['label'], $formParams['theme'], $id];
-                    }
 
+                        $possibleanswers = $this->getQuestionPossibleAnswers($connection, $question);
 
-                    if ($statement->execute($args)) {
+                        if ($statement->execute($args)) {
+                            $i = 1;
+                            foreach ($possibleanswers as $possibleanswer) {
+                                $sql = 'UPDATE possibleanswers SET label = ?, correct = ? WHERE id = ?';
+                                $args = [$formParams['answer' . strval($i)], $formParams['correct' . strval($i)], $possibleanswer['id']];
+                                $statement = $connection->prepare($sql);
+
+                                if (!$statement->execute($args)) {
+                                    throw new \Exception('Une erreur est survenue!');
+                                }
+
+                                $i++;
+                            }
+                        }
+
                         header('Location: /questions');
                         exit(0);
 
                         throw new \Exception('Une erreur est survenue!');
                     }
-
-                    $statement = $connection->prepare($sql);
                 }
             } else {
                 return $this->render('questions/persist.html.twig', ['msg' => 'Vous n\'êtes pas administrateur et ne pouvez donc pas acceder à cette page']);

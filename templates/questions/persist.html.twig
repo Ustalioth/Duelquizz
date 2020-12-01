@@ -53,9 +53,9 @@
 
                 {% if possibleanswers is not null %}
                     {% for possibleanswer in possibleanswers %}
-                        <label for="answer{{possibleanswer.id}}">Réponse {{loop.index}}</label>
-                        <input type="text" class="form-control" id="answer{{possibleanswer.id}}" name="answer{{possibleanswer.id}}" value="{{possibleanswer.label}}">
-                        <select class="form-control" >
+                        <label for="answer{{loop.index}}">Réponse {{loop.index}}</label>
+                        <input type="text" class="form-control" id="answer{{loop.index}}" name="answer{{loop.index}}" value="{{possibleanswer.label}}">
+                        <select class="form-control" id="correct{{loop.index}}" name="correct{{loop.index}}"  >
                         {% if possibleanswer.correct == "1" %}
                                 <option value="1" selected>Correcte</option>
                                 <option value="0">Incorrecte</option>
@@ -68,9 +68,9 @@
 
                 {% else %}
                 {% for i in range(1, 4) %}
-                   <label for="answer{{possibleanswer.id}}">Réponse {{loop.index}}</label>
+                   <label for="answer{{loop.index}}">Réponse {{loop.index}}</label>
                         <input type="text" class="form-control" id="answer{{ loop.index }}" name="answer{{ loop.index }}">
-                        <select name="correct{{loop.index}}" class="form-control" >
+                        <select id="correct{{loop.index}}" name="correct{{loop.index}}" class="form-control" >
                             <option value="1">Correcte</option>
                             <option value="0" selected>Incorrecte</option>
                         <select>
@@ -88,6 +88,9 @@
 
     {% endif %}
 
+    {% if info is defined %}
+        <p>{{ info }}<p>
+    {% endif %}
     
 {% endblock %}
 

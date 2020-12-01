@@ -49,7 +49,7 @@ class Persist extends AbstractController
                         $admin['firstName'] = $formParams['firstName'];
                         $admin['lastName'] = $formParams['lastName'];
                         $admin['email'] = $formParams['email'];
-                        return $this->render('admins/persist.html.twig', ['info' => 'Le mot de passe et la confirmation de mot de passe ne correspondent pas', 'isAdmin' => $_SESSION['isAdmin']]);
+                        return $this->render('admins/persist.html.twig', ['info' => 'Le mot de passe et la confirmation de mot de passe ne correspondent pas', 'isAdmin' => $_SESSION['isAdmin'], 'admin' => $admin]);
                     }
 
                     $hashed = password_hash($formParams['password'], PASSWORD_DEFAULT);
