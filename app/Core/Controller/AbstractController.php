@@ -126,4 +126,17 @@ abstract class AbstractController
             throw new \Exception('Theme correspondant introuvable!');
         }
     }
+
+    public function getQuestionParamsAndRender($formParams, $msg, $themes, $theme)
+    {
+        $question['label'] = $formParams['label'];
+        $theme['id'] = $formParams['theme'];
+        $possibleanswers = [];
+        for ($i = 1; $i < 5; $i++) {
+            $possibleanswers[$i]['label'] = $formParams['answer' . $i];
+            $possibleanswers[$i]['correct'] = $formParams['correct' . strval($i)];
+        }
+
+        return $this->render('questions/persist.html.twig', ['info' => $msg, 'question' => $question, 'theme' => $theme, 'possibleanswers' => $possibleanswers, 'isAdmin' => true, 'correspondingTheme' => $theme, 'correspondingTheme' => $theme, 'themes' => $themes]);
+    }
 }

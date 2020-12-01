@@ -25,7 +25,9 @@ class Persist extends AbstractController
 
                 $themes = $this->getAllthemes($connection);
 
-                $theme = $this->getQuestionTheme($connection, $question);
+                if (isset($question)) {
+                    $theme = $this->getQuestionTheme($connection, $question);
+                }
 
                 $request = $this->getRequest();
 
@@ -71,7 +73,31 @@ class Persist extends AbstractController
                             $possibleanswers[$i]['correct'] = $formParams['correct' . strval($i)];
                         }
 
-                        return $this->render('questions/persist.html.twig', ['info' => 'Une et une seule réponse doit être correcte !', 'question' => $question, 'theme' => $theme, 'possibleanswers' => $possibleanswers, 'isAdmin' => true, 'correspondingTheme' => $theme, 'correspondingTheme' => $theme, 'themes' => $themes,]);
+                        return $this->render('questions/persist.html.twig', ['info' => 'Une et une seule réponse doit être correcte !', 'question' => $question, 'theme' => $theme, 'possibleanswers' => $possibleanswers, 'isAdmin' => true, 'correspondingTheme' => $theme, 'correspondingTheme' => $theme, 'themes' => $themes]);
+                    }
+
+                    $emptyParams = false;
+
+                    if ($formParams['label'] === '' || strlen($formParams['theme']) === '') {
+                        $emptyParams = true;
+                    }
+
+                    for ($i = 1; $i < 5; $i++) {
+                        if ($formParams['answer' . strval($i)] === '') {
+                            $emptyParams = true;
+                        }
+                    }
+
+                    if ($emptyParams === true) {
+                        $question['label'] = $formParams['label'];
+                        $theme['id'] = $formParams['theme'];
+                        $possibleanswers = [];
+                        for ($i = 1; $i < 5; $i++) {
+                            $possibleanswers[$i]['label'] = $formParams['answer' . $i];
+                            $possibleanswers[$i]['correct'] = $formParams['correct' . strval($i)];
+                        }
+
+                        return $this->render('questions/persist.html.twig', ['info' => 'Merci de remplir tous les champs', 'question' => $question, 'theme' => $theme, 'possibleanswers' => $possibleanswers, 'isAdmin' => true, 'correspondingTheme' => $theme, 'correspondingTheme' => $theme, 'themes' => $themes]);
                     }
 
                     if ($isCreation) {
@@ -80,7 +106,6 @@ class Persist extends AbstractController
                         $args = [$formParams['label'], $formParams['theme']];
 
                         $statement = $connection->prepare($sql);
-
 
                         if ($statement->execute($args)) {
                             $lastestQuestion = $this->getLatestQuestion($connection);
