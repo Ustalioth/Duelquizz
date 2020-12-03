@@ -12,7 +12,7 @@ class QuizzList extends AbstractController
         if (isset($_SESSION['isAdmin'])) {
             if ($_SESSION['isAdmin'] === true) {
 
-                    $currentPage =  1; 
+                $currentPage = $_GET['page'] ?? 1;
                 
                 $connection = $this->getConnection();
                 $request = $this->getRequest();
