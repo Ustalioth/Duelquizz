@@ -64,7 +64,6 @@ class QuizzList extends AbstractController
                 if ($statement->execute()) {
                     $quizzes = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-                    var_dump($quizzes);die;
                     return $this->render('quizzes/list.html.twig', ['quizzes' => $quizzes, 'isAdmin' => $_SESSION['isAdmin'], 'numberPages' => $numberPages]);
                 } else {
                     throw new \Exception('Quizz correspondant introuvable!');

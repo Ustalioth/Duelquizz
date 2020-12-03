@@ -32,8 +32,8 @@
                 <th scope="col">#</th>
                 <th scope="col">Mode</th>
                 <th scope="col">Questions</th>
-                <th scope="col">user1</th>
-                <th scope="col">user2</th>
+                <th scope="col">users</th>
+                <th scope="col">winner</th>
             </tr>
             </thead>
             <tbody>
@@ -42,8 +42,8 @@
                         <th scope="row">{{ quizz.id }}</th>
                         <td>{{ quizz.mode }}</td>
                         <td>{{ quizz.questions }}</td>
-                        <td>{{ quizz.user1 }}</td>
-                        <td>{{ quizz.user2 }}</td>
+                        <td>{{ quizz.user1 }}<br/>{{ quizz.user2 }}</td>
+                        <td>{{ quizz.winner }}</td>
                     </tr>
             {% endfor %}
             
