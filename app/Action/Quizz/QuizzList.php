@@ -12,33 +12,30 @@ class QuizzList extends AbstractController
         if (isset($_SESSION['isAdmin'])) {
             if ($_SESSION['isAdmin'] === true) {
 
-                    $currentPage =  1; 
-                
+                $currentPage =  1;
+
                 $connection = $this->getConnection();
                 $request = $this->getRequest();
                 $formParams = $request->getParsedBody();
 
 
                 if ($formParams !== null) {
-                    $q = ("SELECT COUNT(quizzes.id) AS numberposts FROM users, quizzes WHERE
-                    quizzes.user1 = users.id OR quizzes.user2 = users.id AND
-                    users.firstName LIKE '%:search%'  OR
-                    users.lastName LIKE '%:search%'  OR 
-                    users.email LIKE '%:search%'");
-                    
+                    $q = ("SELECT COUNT(q.id) AS numberposts 
+                    FROM quizzes q INNER JOIN users u ON q.user1 = u.id OR q.user2 = u.id 
+                    WHERE u.firstName LIKE '%:search%' OR u.lastName LIKE '%:search%' OR u.email LIKE '%:search%'");
+
                     $state = $connection->query($q);
                     $data = $state->fetch(\PDO::FETCH_ASSOC);
 
-                    $number_posts= $data['numberposts'];
+                    $number_posts = $data['numberposts'];
 
                     $perPage = 20;
-                    $numberPages = ceil($number_posts/$perPage);
+                    $numberPages = ceil($number_posts / $perPage);
 
-                    $sql = ("SELECT * FROM users, quizzes WHERE
-                    quizzes.user1 = users.id OR quizzes.user2 = users.id AND
+                    $sql = ("SELECT * FROM quizzes q INNER JOIN users u ON q.user1 = u.id OR q.user2 = u.id WHERE
                     users.firstName LIKE '%:search%'  OR
                     users.lastName LIKE '%:search%'  OR 
-                    users.email LIKE '%:search%' LIMIT " . $perPage. " OFFSET " . ($currentPage-1)*$perPage); 
+                    users.email LIKE '%:search%' LIMIT " . $perPage . " OFFSET " . ($currentPage - 1) * $perPage);
 
                     $statement = $connection->prepare($sql);
 
@@ -51,13 +48,12 @@ class QuizzList extends AbstractController
                     $state = $connection->query($q);
                     $data = $state->fetch(\PDO::FETCH_ASSOC);
 
-                    $number_posts= $data['numberposts'];
+                    $number_posts = $data['numberposts'];
 
                     $perPage = 1;
-                    $numberPages = ceil($number_posts/$perPage);
+                    $numberPages = ceil($number_posts / $perPage);
 
-                    $sql = 'SELECT * FROM quizzes LIMIT ' . $perPage . " OFFSET " . ($currentPage-1)*$perPage;
-
+                    $sql = 'SELECT * FROM quizzes LIMIT ' . $perPage . " OFFSET " . ($currentPage - 1) * $perPage;
                 }
                 $statement = $connection->prepare($sql);
 
