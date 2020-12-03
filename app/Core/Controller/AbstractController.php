@@ -127,9 +127,10 @@ abstract class AbstractController
         }
     }
 
-    public function getQuestionParamsAndRender($formParams, $msg, $themes, $theme)
+    public function getQuestionParamsAndRender($formParams, $msg, $themes, $theme, $id)
     {
         $question['label'] = $formParams['label'];
+        $question['id'] = $id;
         $theme['id'] = $formParams['theme'];
         $possibleanswers = [];
         for ($i = 1; $i < 5; $i++) {

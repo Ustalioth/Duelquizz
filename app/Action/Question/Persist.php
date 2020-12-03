@@ -65,15 +65,7 @@ class Persist extends AbstractController
                     }
 
                     if ($correctAnswers !== 1) {
-                        $question['label'] = $formParams['label'];
-                        $theme['id'] = $formParams['theme'];
-                        $possibleanswers = [];
-                        for ($i = 1; $i < 5; $i++) {
-                            $possibleanswers[$i]['label'] = $formParams['answer' . $i];
-                            $possibleanswers[$i]['correct'] = $formParams['correct' . strval($i)];
-                        }
-
-                        return $this->render('questions/persist.html.twig', ['info' => 'Une et une seule réponse doit être correcte !', 'question' => $question, 'theme' => $theme, 'possibleanswers' => $possibleanswers, 'isAdmin' => true, 'correspondingTheme' => $theme, 'correspondingTheme' => $theme, 'themes' => $themes]);
+                        return $this->getQuestionParamsAndRender($formParams, 'Une et une seule réponse doit être correcte !', $themes, $theme, $id);
                     }
 
                     $emptyParams = false;
@@ -89,15 +81,7 @@ class Persist extends AbstractController
                     }
 
                     if ($emptyParams === true) {
-                        $question['label'] = $formParams['label'];
-                        $theme['id'] = $formParams['theme'];
-                        $possibleanswers = [];
-                        for ($i = 1; $i < 5; $i++) {
-                            $possibleanswers[$i]['label'] = $formParams['answer' . $i];
-                            $possibleanswers[$i]['correct'] = $formParams['correct' . strval($i)];
-                        }
-
-                        return $this->render('questions/persist.html.twig', ['info' => 'Merci de remplir tous les champs', 'question' => $question, 'theme' => $theme, 'possibleanswers' => $possibleanswers, 'isAdmin' => true, 'correspondingTheme' => $theme, 'correspondingTheme' => $theme, 'themes' => $themes]);
+                        return $this->getQuestionParamsAndRender($formParams, 'Merci de remplir tous les champs', $themes, $theme, $id);
                     }
 
                     if ($isCreation) {
