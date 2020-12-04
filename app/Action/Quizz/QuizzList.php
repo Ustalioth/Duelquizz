@@ -57,10 +57,19 @@ class QuizzList extends AbstractController
                 }
                 $statement = $connection->prepare($sql);
 
+                $usersData = 'SELECT u.lastName, u.firstName FROM quizzes q INNER JOIN users u ON q.user1 = u.id OR q.user2 = u.id';
+                $winner = 'SELECT u.lastName, u.firstName FROM quizzes q INNER JOIN users u ON q.winner = u.id';
+
+                $temp = $connection->query($usersData);
+                $temp2 = $connection->query($winner);
+        
+                $uData = $temp->fetchAll(\PDO::FETCH_ASSOC);
+                $wData = $temp2->fetch(\PDO::FETCH_ASSOC);
+
                 if ($statement->execute()) {
                     $quizzes = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-                    return $this->render('quizzes/list.html.twig', ['quizzes' => $quizzes, 'isAdmin' => $_SESSION['isAdmin'], 'numberPages' => $numberPages]);
+                    return $this->render('quizzes/list.html.twig', ['quizzes' => $quizzes, 'isAdmin' => $_SESSION['isAdmin'], 'numberPages' => $numberPages, 'uData' => $uData, 'wData' => $wData]);
                 } else {
                     throw new \Exception('Quizz correspondant introuvable!');
                 }

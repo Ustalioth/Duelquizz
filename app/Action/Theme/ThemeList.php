@@ -24,12 +24,12 @@ class ThemeList extends AbstractController
                 $perPage = 1;
                 $numberPages = ceil($number_posts / $perPage);
 
-                $sql = 'SELECT * FROM themes LIMIT ' . $perPage . 'OFFSET ' . ($currentPage - 1) * $perPage;
+                $sql = 'SELECT * FROM themes LIMIT ' . $perPage . ' OFFSET ' . ($currentPage - 1) * $perPage;
 
                 $statement = $connection->prepare($sql);
                 $statement->execute();
                 $themes = $statement->fetchAll();
-                var_dump($themes);die;
+
                 return $this->render('themes/list.html.twig', ['themes' => $themes, 'isAdmin' => $_SESSION['isAdmin'], 'numberPages' => $numberPages]);
 
             } else {
