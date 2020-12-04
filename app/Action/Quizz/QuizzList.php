@@ -29,7 +29,7 @@ class QuizzList extends AbstractController
 
                     $number_posts = $data['numberposts'];
 
-                    $perPage = 20;
+                    $perPage = 1;
                     $numberPages = ceil($number_posts / $perPage);
 
                     $sql = ("SELECT * FROM quizzes q INNER JOIN users u ON q.user1 = u.id OR q.user2 = u.id WHERE
