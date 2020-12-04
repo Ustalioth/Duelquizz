@@ -13,7 +13,7 @@ class QuizzList extends AbstractController
             if ($_SESSION['isAdmin'] === true) {
 
                 $currentPage = $_GET['page'] ?? 1;
-                
+
                 $connection = $this->getConnection();
                 $request = $this->getRequest();
                 $formParams = $request->getParsedBody();
@@ -35,11 +35,13 @@ class QuizzList extends AbstractController
                     $sql = ("SELECT * FROM quizzes q INNER JOIN users u ON q.user1 = u.id OR q.user2 = u.id WHERE
                     users.firstName LIKE '%:search%'  OR
                     users.lastName LIKE '%:search%'  OR 
-                    users.email LIKE '%:search%' LIMIT " . $perPage . " OFFSET " . ($currentPage - 1) * $perPage);
+                    users.email LIKE '%:search%' LIMIT :perPage OFFSET :currentPage * :perPage");
 
                     $statement = $connection->prepare($sql);
 
                     $statement->bindParam(':search', $formParams['search']);
+                    $statement->bindParam(':perPage', $perPage);
+                    $statement->bindParam(':currentPage', $currentPage - 1);
 
                     $statement->execute();
                 } else {
