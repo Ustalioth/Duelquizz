@@ -12,7 +12,7 @@ class ThemeList extends AbstractController
         if (isset($_SESSION['isAdmin'])) {
             if ($_SESSION['isAdmin'] === true) {
                 $connection = $this->getConnection();
-                $currentPage = $_GET['page'] ?? 1;
+                $currentPage = (int)($_GET['page'] ?? 1);
 
                 $q = "SELECT COUNT(id) AS numberposts FROM themes";
 

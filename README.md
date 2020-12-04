@@ -1,14 +1,1 @@
-# Pour le 04/11
-
-- Ecrire un validateur capable de valider des entités. Ce genre de code devrait fonctionner : 
-
-```php
-<?php
-/**
- * Class User with these properties : username, firstName, email
- */
-$user = new User();
-$user->setFirstName('John');
-
-$errors = $validator->validate($user);
-```
+Nous avons set le nombre d'éléments affichés dans les listes à 1 pour faciliter la correction, pour modifier le nombre d'élements affichés il suffit de modifier la variable $perPage avec le nombre d'éléments souhaités
