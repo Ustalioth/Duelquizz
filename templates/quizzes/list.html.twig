@@ -42,8 +42,12 @@
                         <th scope="row">{{ quizz.id }}</th>
                         <td>{{ quizz.mode }}</td>
                         <td>{{ quizz.questions }}</td>
-                        <td>{{ quizz.user1 }}<br/>{{ quizz.user2 }}</td>
-                        <td>{{ quizz.winner }}</td>
+                        <td>
+                        {% for us in uData %}
+                            {{ us.lastName }} {{ us.firstName }} <br>
+                        {% endfor %}
+                        </td>
+                        <td>{{ wData.lastName }} {{ wData.firstName }}</td>
                     </tr>
             {% endfor %}
             

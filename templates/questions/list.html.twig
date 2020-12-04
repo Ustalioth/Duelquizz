@@ -20,6 +20,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Label</th>
                 <th scope="col">Theme</th>
+                <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -42,7 +43,7 @@
         Aller à la page : 
         
         {% for i in 1..numberPages%}
-            <a href="/quizzes?page={{ i }}">{{ i }}</a>
+            <a href="/questions?page={{ i }}">{{ i }}</a>
         {%endfor%}
     </div>
 
