@@ -140,4 +140,9 @@ abstract class AbstractController
 
         return $this->render('questions/persist.html.twig', ['info' => $msg, 'question' => $question, 'theme' => $theme, 'possibleanswers' => $possibleanswers, 'isAdmin' => true, 'correspondingTheme' => $theme, 'correspondingTheme' => $theme, 'themes' => $themes]);
     }
+
+    public function addHeader(string $name, string $value)
+    {
+        header(sprintf('%s: %s', $name, $value));
+    }
 }

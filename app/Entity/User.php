@@ -4,32 +4,36 @@ namespace App\Entity;
 
 class User
 {
-    protected ?string $username = null;
+    use HydrationTrait;
 
-    protected ?string $firstName = null;
+    protected ?int $id = null;
 
     protected ?string $email = null;
 
-    public function getUsername(): ?string
+    protected ?string $password = null;
+
+    protected ?string $fullName = null;
+
+    public function getId(): ?int
     {
-        return $this->username;
+        return $this->id;
     }
 
-    public function setUsername(?string $username): User
+    public function setId(?int $id): User
     {
-        $this->username = $username;
+        $this->id = $id;
 
         return $this;
     }
 
-    public function getFirstName(): ?string
+    public function getFullName(): ?string
     {
-        return $this->firstName;
+        return $this->fullName;
     }
 
-    public function setFirstName(?string $firstName): User
+    public function setFullName(?string $fullName): User
     {
-        $this->firstName = $firstName;
+        $this->fullName = $fullName;
 
         return $this;
     }
@@ -42,6 +46,18 @@ class User
     public function setEmail(?string $email): User
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(?string $password): User
+    {
+        $this->password = $password;
 
         return $this;
     }
