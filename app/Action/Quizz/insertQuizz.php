@@ -20,28 +20,20 @@ class insertQuizz extends AbstractController
         $sth = $connexion->prepare("INSERT INTO quizzes (mode, user1, startAt) VALUES (?,?,?)");
         $params = [$data['mode'], $data['user1'], $data['startAt']];
         if ($sth->execute($params)) {
-            $sth->execute($params);
+            $id = ($connexion->lastInsertId());
+
+            $questions = $data['questions'];
+
+            foreach ($questions as $key => $question) {
+
+                $sth = $connexion->prepare("INSERT INTO questionxquizz (question,quizz) VALUES (?,?)");
+                if (!$sth->execute([$question['id'], $id])) {
+                    $fail = $sth->errorCode();
+                }
+            }
         } else {
             $fail = $sth->errorCode();
         }
-
-        // $id = ($connexion->lastInsertId());
-
-        // $questions = json_decode($data['questions']);
-
-        // foreach ($questions as  $question) {
-        //     $sth = $connexion->prepare("INSERT INTO questionxquizz (question,quizz) VALUES (?,?)");
-        //     if ($sth->execute($question['id'], $id)) {
-        //         $sth->execute($question['id'], $id);
-        //     } else {
-        //         $fail = $sth->errorCode();
-        //     }
-        // }
-
-        var_dump(json_encode([
-            "fail" => $fail
-        ]));
-        die;
 
         return json_encode([
             "fail" => $fail

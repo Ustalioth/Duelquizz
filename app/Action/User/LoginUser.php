@@ -27,8 +27,8 @@ class LoginUser extends AbstractController
         }
 
         $token = $tokenManager->encode([
-            "iss" => "http://rest",
-            "aud" => "http://rest",
+            "iss" => "http://duelquizz-php",
+            "aud" => "http://duelquizz-php",
             "iat" => time(),
             "exp" => time() + 86400,
             'email' => $data['email']
