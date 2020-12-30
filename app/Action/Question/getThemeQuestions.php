@@ -15,9 +15,6 @@ class getThemeQuestions extends AbstractController
         $sth->execute([$id]);
         $result = $sth->fetchAll();
 
-        var_dump($result);
-        die;
-
         return json_encode([
             "questions" => $result
         ]);

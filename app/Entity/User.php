@@ -12,7 +12,13 @@ class User
 
     protected ?string $password = null;
 
-    protected ?string $fullName = null;
+    protected ?string $firstName = null;
+
+    protected ?string $lastName = null;
+
+    protected ?string $points = null;
+
+    protected ?string $registerAt = null;
 
     public function getId(): ?int
     {
@@ -26,14 +32,26 @@ class User
         return $this;
     }
 
-    public function getFullName(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->fullName;
+        return $this->firstName;
     }
 
-    public function setFullName(?string $fullName): User
+    public function setFirstName(?string $firstName): User
     {
-        $this->fullName = $fullName;
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(?string $lastName): User
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -58,6 +76,30 @@ class User
     public function setPassword(?string $password): User
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getPoints()
+    {
+        return $this->points;
+    }
+
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    public function getRegisterAt()
+    {
+        return $this->registerAt;
+    }
+
+    public function setRegisterAt($registerAt)
+    {
+        $this->registerAt = $registerAt;
 
         return $this;
     }

@@ -21,6 +21,7 @@ use App\Action\Question\Delete as DeleteQuestion;
 use App\Action\Question\getThemeQuestions;
 use App\Action\Quizz\Search;
 use App\Action\User\CheckToken;
+use App\Action\User\getPosition;
 use App\Core\Routing\Route;
 
 return [
@@ -47,4 +48,5 @@ return [
     new Route('/api/user/themeQuestions/{id}', getThemeQuestions::class, ['GET']),
     new Route('/api/user/insertQuizz', insertQuizz::class, ['POST']),
     new Route('/api/user/checktoken', CheckToken::class, ['POST']),
+    new Route('/api/user/getPosition/{id}', getPosition::class, ['GET']),
 ];
