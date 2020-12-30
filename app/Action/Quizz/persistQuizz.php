@@ -6,7 +6,7 @@ use App\Core\Controller\AbstractController;
 use App\Service\TokenManager;
 use App\Service\UserManager;
 
-class insertQuizz extends AbstractController
+class persistQuizz extends AbstractController
 {
     public function __invoke()
     {
@@ -18,16 +18,32 @@ class insertQuizz extends AbstractController
         $fail = null;
 
         $sth = $connexion->prepare("INSERT INTO quizzes (mode, user1, startAt) VALUES (?,?,?)");
-        $params = [$data['mode'], $data['user1'], $data['startAt']];
+        $params = [$data['mode'], $data['user1'], date("Y-m-d H:i:s")];
+          
+        
         if ($sth->execute($params)) {
-            $id = ($connexion->lastInsertId());
 
-            $questions = $data['questions'];
+            $idQuizz = ($connexion->lastInsertId());
 
-            foreach ($questions as $key => $question) {
+            $sth = $connexion->prepare("SELECT * FROM questions WHERE theme = ?");
+            $params = [$data['themeId']];
+
+            if($sth->execute($params)){
+                $questions = $sth->fetchAll();
+
+                $randIndex = array_rand($questions, 4);
+            }
+
+            $randQuestions = [];
+
+            for ($i=0; $i < count($randIndex); $i++) { 
+                array_push($randQuestions, $questions[$randIndex[$i]]);
+            }
+
+            foreach ($randQuestions as $key => $question) {
 
                 $sth = $connexion->prepare("INSERT INTO questionxquizz (question,quizz) VALUES (?,?)");
-                if (!$sth->execute([$question['id'], $id])) {
+                if (!$sth->execute([$question['id'], $idQuizz])) {
                     $fail = $sth->errorCode();
                 }
             }

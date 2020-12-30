@@ -14,7 +14,7 @@ use App\Action\User\User;
 use App\Action\User\UserList;
 use App\Action\User\LoginUser;
 use App\Action\Quizz\QuizzList;
-use App\Action\Quizz\insertQuizz;
+use App\Action\Quizz\persistQuizz;
 use App\Action\Question\QuestionList;
 use App\Action\Question\Persist as PersistQuestion;
 use App\Action\Question\Delete as DeleteQuestion;
@@ -46,7 +46,7 @@ return [
     new Route('/api/user/login', LoginUser::class, ['POST']),
     new Route('/api/user/themes', getThemes::class, ['GET']),
     new Route('/api/user/themeQuestions/{id}', getThemeQuestions::class, ['GET']),
-    new Route('/api/user/insertQuizz', insertQuizz::class, ['POST']),
+    new Route('/api/user/persistQuizz', persistQuizz::class, ['POST']),
     new Route('/api/user/checktoken', CheckToken::class, ['POST']),
     new Route('/api/user/getPosition/{id}', getPosition::class, ['GET']),
 ];

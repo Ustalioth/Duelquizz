@@ -1,58 +1,44 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layout.html.twig' %} {% block title %}Liste des thèmes{% endblock %}
+{% block body %} {% if msg is defined %}
+<p>{{ msg }}</p>
+<p>{% else %}</p>
 
-{% block title %}Liste des thèmes{% endblock %}
+<p class="text-center">
+  <a href="/theme" class="btn btn-success">Nouveau thème</a>
+</p>
 
-{% block body %}
+<div class="container">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for theme in themes %}
+      <tr>
+        <th scope="row">{{ theme.id }}</th>
+        <td>{{ theme.name }}</td>
+        <td>
+          <a href="/theme/{{ theme.id }}">modifier</a> -
+          <a href="#" data-id="{{ theme.id }}" class="delete-theme"
+            >supprimer</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  Aller à la page : {% for i in 1..numberPages%}
+  <a href="/themes?page={{ i }}">{{ i }}</a>
+  {%endfor%}
+</div>
 
-    {% if msg is defined %}
-        <p>{{ msg }}<p>
-
-    {% else %}
-
-    <p class="text-center">
-        <a href="/theme" class="btn btn-success">Nouveau thème</a>
-    </p>
-
-    <div class="container">
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for theme in themes %}
-                <tr>
-                    <th scope="row">{{ theme.id }}</th>
-                    <td>{{ theme.name }}</td>
-                    <td>
-                        <a href="/theme/{{ theme.id }}">modifier</a> -
-                        <a href="#" data-id="{{ theme.id }}" class="delete-theme">supprimer</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        Aller à la page : 
-        
-        {% for i in 1..numberPages%}
-            <a href="/themes?page={{ i }}">{{ i }}</a>
-        {%endfor%}
-    </div>
-
-    {% endif %}  
-
+{% endif %} {% endblock %} {% block js %}
+<script src="/js/handleDelete.js"></script>
+<script>
+  Delete(".delete-theme", "theme");
+</script>
 {% endblock %}
-
-
-{% block js %}
-    <script src="/js/handleDelete.js"></script>
-    <script>
-        console.log("called");
-        Delete(".delete-theme", "theme");
-    </script>
-{% endblock %}
-
-
