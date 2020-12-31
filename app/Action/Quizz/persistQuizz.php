@@ -3,14 +3,16 @@
 namespace App\Action\Quizz;
 
 use App\Core\Controller\AbstractController;
-use App\Service\TokenManager;
-use App\Service\UserManager;
+use App\Service\QuizzManager;
+use App\Serializer\ObjectSerializer;
 
 class persistQuizz extends AbstractController
 {
     public function __invoke()
     {
         $connexion = $this->getConnection();
+        $QuizzManager = new QuizzManager();
+        $serializer = new ObjectSerializer();
 
         $request = $this->getRequest();
         $data = $request->getParsedBody();
@@ -42,7 +44,7 @@ class persistQuizz extends AbstractController
 
             foreach ($randQuestions as $key => $question) {
 
-                $sth = $connexion->prepare("INSERT INTO questionxquizz (question,quizz) VALUES (?,?)");
+                $sth = $connexion->prepare("INSERT INTO question_quizz (question,quizz) VALUES (?,?)");
                 if (!$sth->execute([$question['id'], $idQuizz])) {
                     $fail = $sth->errorCode();
                 }
@@ -51,8 +53,10 @@ class persistQuizz extends AbstractController
             $fail = $sth->errorCode();
         }
 
-        return json_encode([
-            "fail" => $fail
-        ]);
+        $quizz = $QuizzManager->findOneById($idQuizz);
+
+        //var_dump($quizz);die;
+
+        return $serializer->toJson($quizz);
     }
 }
