@@ -22,7 +22,7 @@ class CheckToken extends AbstractController
 
         $user = $userManager->findOneByEmail($token['email']);
 
-        $returned['email'] = $user->getEmail();
+        // $returned['email'] = $user->getEmail();
         $returned['firstName'] = $user->getFirstName();
         $returned['lastName'] = $user->getLastName();
         $returned['points'] = $user->getPoints();

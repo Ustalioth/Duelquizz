@@ -16,6 +16,8 @@ class LoginUser extends AbstractController
         $request = $this->getRequest();
         $data = $request->getParsedBody();
 
+        var_dump($data);die;
+
         $user = $userManager->findOneByEmail($data['email']);
 
         if (!$user) {

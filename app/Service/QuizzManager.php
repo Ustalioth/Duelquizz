@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Core\Connection\Connection;
 use App\Entity\Quizz;
+use PDO;
 
 class QuizzManager
 {

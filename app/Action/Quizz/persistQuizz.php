@@ -5,6 +5,7 @@ namespace App\Action\Quizz;
 use App\Core\Controller\AbstractController;
 use App\Service\QuizzManager;
 use App\Serializer\ObjectSerializer;
+use PDO;
 
 class persistQuizz extends AbstractController
 {
@@ -31,7 +32,7 @@ class persistQuizz extends AbstractController
             $params = [$data['themeId']];
 
             if($sth->execute($params)){
-                $questions = $sth->fetchAll();
+                $questions = $sth->fetchAll(PDO::FETCH_ASSOC);
 
                 $randIndex = array_rand($questions, 4);
             }
@@ -55,8 +56,13 @@ class persistQuizz extends AbstractController
 
         $quizz = $QuizzManager->findOneById($idQuizz);
 
-        //var_dump($quizz);die;
+        $this->addHeader('Content-Type', 'application/json');
+
+        if($fail === null){
+            return json_encode(["fail" => $fail]);
+        }
 
         return $serializer->toJson($quizz);
+        //return json_encode(["idQuizz" => $idQuizz]);
     }
 }

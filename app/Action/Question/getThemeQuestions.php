@@ -13,7 +13,7 @@ class getThemeQuestions extends AbstractController
         $connexion = $this->getConnection();
         $sth = $connexion->prepare("SELECT * FROM questions WHERE theme = ?");
         $sth->execute([$id]);
-        $result = $sth->fetchAll();
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
         return json_encode([
             "questions" => $result

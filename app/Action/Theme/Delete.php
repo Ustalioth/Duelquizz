@@ -3,6 +3,7 @@
 namespace App\Action\Theme;
 
 use App\Core\Controller\AbstractController;
+use PDO;
 
 class Delete extends AbstractController
 {

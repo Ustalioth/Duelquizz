@@ -3,6 +3,8 @@
 namespace App\Action\Admin;
 
 use App\Core\Controller\AbstractController;
+use PDO;
+
 
 class AdminList extends AbstractController
 {
@@ -27,7 +29,7 @@ class AdminList extends AbstractController
                 $sql = 'SELECT * FROM admins LIMIT ' . $perPage . ' OFFSET ' . ($currentPage - 1) * $perPage;
                 $statement = $connection->prepare($sql);
                 $statement->execute();
-                $admins = $statement->fetchAll();
+                $admins = $statement->fetchAll(PDO::FETCH_ASSOC);
 
                 return $this->render('admins/list.html.twig', ['admins' => $admins, 'isAdmin' => $_SESSION['isAdmin'], 'numberPages' => $numberPages]);
             } else {
