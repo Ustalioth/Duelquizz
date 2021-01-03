@@ -2,6 +2,11 @@
 
 namespace App\Core\Controller;
 
+require '../PHPMailer/src/Exception.php';
+require '../PHPMailer/src/PHPMailer.php';
+require '../PHPMailer/src/SMTP.php';
+require '../vendor/autoload.php';
+
 use App\Core\Connection\Connection;
 use App\Core\Template\TemplateEngine;
 use App\Entity\User;
