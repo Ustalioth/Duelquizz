@@ -6,7 +6,7 @@ use App\Core\Controller\AbstractController;
 use App\Service\QuestionManager;
 use PDO;
 
-class persistQuizz extends AbstractController
+class PersistQuizz extends AbstractController
 {
     public function __invoke()
     {
@@ -18,8 +18,13 @@ class persistQuizz extends AbstractController
 
             $fail = null;
 
-            $sth = $connexion->prepare("INSERT INTO quizzes (mode, user1, startAt) VALUES (?,?,?)");
-            $params = [$data['mode'], $data['user1'], date("Y-m-d H:i:s")];
+            if (isset($data['user2'])) {
+                $sth = $connexion->prepare("INSERT INTO quizzes (mode, user1, user2, startAt) VALUES (?,?,?,NOW())");
+                $params = [$data['mode'], $data['user1'], $data['user2']];
+            } else {
+                $sth = $connexion->prepare("INSERT INTO quizzes (mode, user1, startAt) VALUES (?,?,NOW())");
+                $params = [$data['mode'], $data['user1'], date("Y-m-d H:i:s")];
+            }
 
 
             if ($sth->execute($params)) {
