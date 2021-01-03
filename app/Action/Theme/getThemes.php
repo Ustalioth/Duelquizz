@@ -3,7 +3,9 @@
 namespace App\Action\Theme;
 
 use App\Core\Controller\AbstractController;
+use Nyholm\Psr7\Response;
 use PDO;
+
 
 
 class getThemes extends AbstractController
