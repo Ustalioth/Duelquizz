@@ -74,7 +74,7 @@ abstract class AbstractController
         $sql = 'SELECT * FROM themes';
 
         $statement = $connection->query($sql);
-        $themes = $statement->fetchAll();
+        $themes = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         return $themes;
     }
@@ -107,7 +107,7 @@ abstract class AbstractController
 
 
         if ($statement->execute($args) && $delete === false) {
-            $possibleanswers = $statement->fetchAll();
+            $possibleanswers = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $possibleanswers;
         } else if ($statement->execute($args) && $delete === true) {
             return true;

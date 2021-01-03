@@ -3,6 +3,7 @@
 namespace App\Action\Quizz;
 
 use App\Core\Controller\AbstractController;
+use PDO;
 
 class Search extends AbstractController
 {

@@ -3,6 +3,7 @@
 namespace App\Action\User;
 
 use App\Core\Controller\AbstractController;
+use PDO;
 
 class getPosition extends AbstractController
 {
@@ -11,7 +12,7 @@ class getPosition extends AbstractController
         $connexion = $this->getConnection();
         $sth = $connexion->prepare("SELECT * FROM users ORDER BY points");
         $sth->execute();
-        $result = $sth->fetchAll();
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($result as $key => $value) {
             if($value['id'] === strval($id)){

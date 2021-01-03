@@ -3,6 +3,7 @@
 namespace App\Action\Admin;
 
 use App\Core\Controller\AbstractController;
+use PDO;
 
 class Persist extends AbstractController
 {

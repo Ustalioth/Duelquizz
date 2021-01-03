@@ -5,6 +5,8 @@ namespace App\Action\Theme;
 use App\Core\Controller\AbstractController;
 use App\Service\TokenManager;
 use App\Service\UserManager;
+use PDO;
+
 
 class getThemes extends AbstractController
 {
@@ -13,7 +15,7 @@ class getThemes extends AbstractController
         $connexion = $this->getConnection();
         $sth = $connexion->prepare("SELECT * FROM themes");
         $sth->execute();
-        $result = $sth->fetchAll();
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
         return json_encode([
             "themes" => $result

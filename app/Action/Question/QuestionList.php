@@ -3,6 +3,7 @@
 namespace App\Action\Question;
 
 use App\Core\Controller\AbstractController;
+use PDO;
 
 class QuestionList extends AbstractController
 {
@@ -28,7 +29,7 @@ class QuestionList extends AbstractController
 
                 $statement = $connection->prepare($sql);
                 $statement->execute();
-                $questions = $statement->fetchAll();
+                $questions = $statement->fetchAll(PDO::FETCH_ASSOC);
 
                 $themes = array();
                 foreach ($questions as $question) {

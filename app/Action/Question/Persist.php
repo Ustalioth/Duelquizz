@@ -3,6 +3,7 @@
 namespace App\Action\Question;
 
 use App\Core\Controller\AbstractController;
+use PDO;
 
 class Persist extends AbstractController
 {
@@ -44,7 +45,7 @@ class Persist extends AbstractController
                         $sql = 'SELECT * FROM themes'; //On récupère tous les thèmes pr générer les options du select
 
                         $statement = $connection->query($sql);
-                        $themes = $statement->fetchAll();
+                        $themes = $statement->fetchAll(PDO::FETCH_ASSOC);
 
                         return $this->render('questions/persist.html.twig', [
                             'themes' => $themes, 'isAdmin' => $_SESSION['isAdmin']

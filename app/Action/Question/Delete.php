@@ -3,6 +3,8 @@
 namespace App\Action\Question;
 
 use App\Core\Controller\AbstractController;
+use PDO;
+
 
 class Delete extends AbstractController
 {

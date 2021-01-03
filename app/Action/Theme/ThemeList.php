@@ -3,6 +3,7 @@
 namespace App\Action\Theme;
 
 use App\Core\Controller\AbstractController;
+use PDO;
 
 class ThemeList extends AbstractController
 {
@@ -28,7 +29,7 @@ class ThemeList extends AbstractController
 
                 $statement = $connection->prepare($sql);
                 $statement->execute();
-                $themes = $statement->fetchAll();
+                $themes = $statement->fetchAll(PDO::FETCH_ASSOC);
                 return $this->render('themes/list.html.twig', ['themes' => $themes, 'isAdmin' => $_SESSION['isAdmin'], 'numberPages' => $numberPages]);
             } else {
                 return $this->render('themes/list.html.twig', ['msg' => 'Vous n\'êtes pas administrateur et ne pouvez donc pas acceder à cette page']);

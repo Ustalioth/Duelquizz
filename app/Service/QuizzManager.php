@@ -3,19 +3,19 @@
 namespace App\Service;
 
 use App\Core\Connection\Connection;
-use App\Entity\User;
+use App\Entity\Quizz;
 use PDO;
 
-class UserManager
+class QuizzManager
 {
-    public function findOneByEmail(string $email): ?User
+    public function findOneById(int $id): ?Quizz
     {
         $connection = Connection::getInstance();
 
-        $sql = 'SELECT * FROM users WHERE email=?';
+        $sql = 'SELECT * FROM quizzes WHERE id=?';
 
         $statement = $connection->prepare($sql);
-        $statement->execute([$email]);
+        $statement->execute([$id]);
 
         $data = $statement->fetch(\PDO::FETCH_ASSOC);
 
@@ -23,9 +23,9 @@ class UserManager
             return null;
         }
 
-        $user = new User();
-        $user->hydrate($data);
+        $quizz = new Quizz();
+        $quizz->hydrate($data);
 
-        return $user;
+        return $quizz;
     }
 }
