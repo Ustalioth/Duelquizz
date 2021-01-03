@@ -3,8 +3,6 @@
 namespace App\Action\Theme;
 
 use App\Core\Controller\AbstractController;
-use App\Service\TokenManager;
-use App\Service\UserManager;
 use PDO;
 
 
@@ -12,6 +10,8 @@ class getThemes extends AbstractController
 {
     public function __invoke()
     {
+        $this->getUser();
+
         $connexion = $this->getConnection();
         $sth = $connexion->prepare("SELECT * FROM themes");
         $sth->execute();

@@ -4,6 +4,9 @@ namespace App\Core\Controller;
 
 use App\Core\Connection\Connection;
 use App\Core\Template\TemplateEngine;
+use App\Entity\User;
+use App\Service\TokenManager;
+use App\Service\UserManager;
 use Error;
 use PDO;
 use Psr\Http\Message\ServerRequestInterface;
@@ -144,5 +147,23 @@ abstract class AbstractController
     public function addHeader(string $name, string $value)
     {
         header(sprintf('%s: %s', $name, $value));
+    }
+
+    public function getUser(): ?User
+    {
+        $request = $this->getRequest();
+
+        if ($request->hasHeader('Authorization')) {
+            $token = $request->getHeader('Authorization')[0];
+            $data = (new TokenManager())->decode($token);
+
+            if ($data['exp'] > time()) {
+                return (new UserManager())->findOneByEmail($data['email']);
+            } else {
+                throw new \LogicException('Token Expiré!');
+            }
+        }
+
+        return null;
     }
 }

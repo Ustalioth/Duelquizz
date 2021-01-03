@@ -6,6 +6,7 @@ use App\Action\Disconnect;
 use App\Action\Admin\AdminList;
 use App\Action\Admin\Delete as DeleteAdmin;
 use App\Action\Admin\Persist as PersistAdmin;
+use App\Action\Answer\PersistAnswer;
 use App\Action\Theme\ThemeList;
 use App\Action\Theme\Delete as DeleteTheme;
 use App\Action\Theme\Persist as PersistTheme;
@@ -18,9 +19,7 @@ use App\Action\Quizz\persistQuizz;
 use App\Action\Question\QuestionList;
 use App\Action\Question\Persist as PersistQuestion;
 use App\Action\Question\Delete as DeleteQuestion;
-use App\Action\Question\getThemeQuestions;
-use App\Action\Quizz\Search;
-use App\Action\User\CheckToken;
+use App\Action\User\getUserData;
 use App\Action\User\getPosition;
 use App\Core\Routing\Route;
 
@@ -45,8 +44,8 @@ return [
     //ROUTES DE L'API
     new Route('/api/user/login', LoginUser::class, ['POST']),
     new Route('/api/user/themes', getThemes::class, ['GET']),
-    new Route('/api/user/themeQuestions/{id}', getThemeQuestions::class, ['GET']),
     new Route('/api/user/persistQuizz', persistQuizz::class, ['POST']),
-    new Route('/api/user/checktoken', CheckToken::class, ['POST']),
+    new Route('/api/user/getUserData', getUserData::class, ['GET']),
     new Route('/api/user/getPosition/{id}', getPosition::class, ['GET']),
+    new Route('/api/user/persistAnswer', PersistAnswer::class, ['PATCH']),
 ];

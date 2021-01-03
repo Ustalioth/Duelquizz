@@ -9,19 +9,23 @@ class getPosition extends AbstractController
 {
     public function __invoke(int $id)
     {
-        $connexion = $this->getConnection();
-        $sth = $connexion->prepare("SELECT * FROM users ORDER BY points");
-        $sth->execute();
-        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        if ($this->getUser() !== null) {
+            $connexion = $this->getConnection();
+            $sth = $connexion->prepare("SELECT * FROM users ORDER BY points");
+            $sth->execute();
+            $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($result as $key => $value) {
-            if($value['id'] === strval($id)){
-                $position = $key;
+            foreach ($result as $key => $value) {
+                if ($value['id'] === strval($id)) {
+                    $position = $key;
+                }
             }
+
+            $this->addHeader('Content-Type', 'application/json');
+
+            return json_encode(["position" => $position + 1, "outOf" => count($result)]);
+        } else {
+            throw new \LogicException('Token absent!');
         }
-
-        $this->addHeader('Content-Type', 'application/json');
-
-        return json_encode(["position" => $position + 1, "outOf" => count($result)]);
     }
 }
