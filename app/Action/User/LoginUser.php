@@ -16,8 +16,6 @@ class LoginUser extends AbstractController
         $request = $this->getRequest();
         $data = $request->getParsedBody();
 
-        var_dump($data);die;
-
         $user = $userManager->findOneByEmail($data['email']);
 
         if (!$user) {
@@ -39,7 +37,11 @@ class LoginUser extends AbstractController
         $this->addHeader('Content-Type', 'application/json');
 
         return json_encode([
-            'token' => $token
+            'token' => $token,
+            'id' => $user->getId(),
+            'points' => $user->getPoints(),
+            'firstName' => $user->getFirstName(),
+            'lastName' => $user->getLastName()
         ]);
     }
 }

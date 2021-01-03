@@ -1,0 +1,4 @@
+- Création de la table "question_quizz"
+- Ajout des champs user1 et user2 à cette table
+- Suppression de l'attribut "questions" de la table quizzes
+- Valeur par défaut set à 0 pour les points dans la table users

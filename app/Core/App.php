@@ -15,15 +15,15 @@ class App
 
     public function handle(ServerRequestInterface $request)
     {
-        echo $this->disptach($request);
+        echo $this->dispatch($request);
     }
 
-    protected function disptach(ServerRequestInterface $request): string
+    protected function dispatch(ServerRequestInterface $request): string
     {
         /** @var Route[] $routes */
         $routes = require($this->rootDir . '/config/routing.php');
 
-        $dispatcher = simpleDispatcher(function(RouteCollector $r) use ($routes) {
+        $dispatcher = simpleDispatcher(function (RouteCollector $r) use ($routes) {
             foreach ($routes as $route) {
                 $r->addRoute(
                     $route->getMethod(),
@@ -53,7 +53,7 @@ class App
                 throw new \Exception('Méthode non autorisée', 401);
                 break;
             case Dispatcher::FOUND:
-                [,$action, $vars] = $routeInfo;
+                [, $action, $vars] = $routeInfo;
 
                 if (!class_exists($action)) {
                     throw new \RuntimeException('Class ' . $action . 'does not exists!');
@@ -70,6 +70,5 @@ class App
                 return call_user_func_array($instance, $vars);
                 break;
         }
-
     }
 }
