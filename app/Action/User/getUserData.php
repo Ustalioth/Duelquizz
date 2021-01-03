@@ -16,15 +16,13 @@ class getUserData extends AbstractController
             $user = $this->getUser();
             $serializer = new ObjectSerializer;
 
-            if ($data['returnType'] === "JSON") {
-                $this->addHeader('Content-Type', 'application/json');
-                return $serializer->toJson($user);
-            } else {
+            if ($data['returnType'] === "XML") {
                 $this->addHeader('Content-Type', 'application/xml');
                 return $this->render('users/users.xml.twig', ['user' => $user]);
+            } else {
+                $this->addHeader('Content-Type', 'application/json');
+                return $serializer->toJson($user);
             }
-
-            
         } else {
             throw new \LogicException('Token absent!');
         }
