@@ -1,0 +1,24 @@
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th scope="col">
+				#
+			</th>
+			<th scope="col">
+				Nom
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for theme in themes %}
+			<tr>
+				<th scope="row">
+					{{ theme.id }}
+				</th>
+				<td>
+					{{ theme.name }}
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
