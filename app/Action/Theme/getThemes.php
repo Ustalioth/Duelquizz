@@ -21,15 +21,14 @@ class getThemes extends AbstractController
             $sth->execute();
             $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
-            if ($data['returnType'] === 'JSON') {
+            if ($data['returnType'] === "JSON") {
                 $this->addHeader('Content-Type', 'application/json');
                 return json_encode([
                     "themes" => $result
                 ]);
             } else {
-                $response = new Response($this->render('themes.xml.twig'));
                 $this->addHeader('Content-Type', 'application/xml');
-                return $response;
+                return $this->render('themes/themes.xml.twig', ['themes' => $result]);
             }
         } else {
             throw new \LogicException('Token absent!');
