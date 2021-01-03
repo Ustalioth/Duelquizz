@@ -13,19 +13,16 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for user in users %}
-			<tr>
-				<th scope="row">
-					{{ user.id }}
-				</th>
-				<td>
-					{{ user.firstName }}
-				</td>
-				<td>
-					{{ user.lastName }}
-				</td>
-			</tr>
-		{% endfor %}
+		<tr>
+			<th scope="row">
+				{{ user.id }}
+			</th>
+			<td>
+				{{ user.firstName }}
+			</td>
+			<td>
+				{{ user.lastName }}
+			</td>
+		</tr>
 	</tbody>
 </table>
-
