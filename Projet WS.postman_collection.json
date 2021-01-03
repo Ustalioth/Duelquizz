@@ -1,0 +1,293 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Projet WS",
+		"_postman_id": "8590a57b-7162-e2c4-67a3-abd8475171ee",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://duelquizz-php/api/user/persistQuizz",
+			"request": {
+				"url": "http://duelquizz-php/api/user/persistQuizz",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9kdWVscXVpenotcGhwIiwiYXVkIjoiaHR0cDpcL1wvZHVlbHF1aXp6LXBocCIsImlhdCI6MTYwOTYwMDcwOCwiZXhwIjoxNjA5Njg3MTA4LCJlbWFpbCI6ImFAYS5mciJ9.EXUKpTqdco7WsWKSX9EPPZsrrL2WRHxhL9yPWtrDMaF_pFtYTd83LDqPuJ_2fcbrZfQX6-kPg-57FknFAVMd5squ1sUIc5GxRgCHiUrqSIFw_sZWf7ZLDrZm0fZUG1tkKEMC-iH13vdeLlc9ONCdbsSIC5DzDqNiAaCTtD03daLMQDZcP8QrrYZlELu0dyrgdAAzWRREXq37U8Qh5s7LNNb2VNMK_fLKBgMykv75xEOs6HjnpZI8Rw6-lk9cXQ8tSbgQTBv5J4apGDvhRn-F_lGCmkGe4xUuyVSvenLBLwrDCkTKKC8aiEOuYVIe2D6deSmwXYqFRgvgQ5guf-XxcA",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mode",
+							"value": "0",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "user1",
+							"value": "0",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "startAt",
+							"value": "2020-12-20",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "questions[0][id]",
+							"value": "0",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "questions[1][id]",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "questions[2][id]",
+							"value": "2",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "questions[3][id]",
+							"value": "3",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "themeId",
+							"value": "0",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://duelquizz-php/api/user/getUserData",
+			"request": {
+				"url": {
+					"raw": "http://duelquizz-php/api/user/getUserData?returnType=XML",
+					"protocol": "http",
+					"host": [
+						"duelquizz-php"
+					],
+					"path": [
+						"api",
+						"user",
+						"getUserData"
+					],
+					"query": [
+						{
+							"key": "returnType",
+							"value": "XML",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9kdWVscXVpenotcGhwIiwiYXVkIjoiaHR0cDpcL1wvZHVlbHF1aXp6LXBocCIsImlhdCI6MTYwOTY5MDY0MywiZXhwIjoxNjA5Nzc3MDQzLCJlbWFpbCI6ImFAYS5mciJ9.MddzRQWst-UPv_kyt0PRQwxJuR-AvgDvx3HRzfqnuV-NkjKhqzuD0lILsFWoLUC9pIJjG7omXyhVrtVN4uiQZFhnfpwvl5q6pmhyWh3Hq_8L5VBrHwC_yd28jevYdAJWHcltusnL88WEIEeEoqg9fbMcv21wmEX1dm4e50aMzL-wcAhGhfokjuHeppJxmsYHnxa1ziq9IKhLB73X0lBtX5VNlgaT_dbOVfiUGM6xX2ZEPOIFBHeiVa4hs0E2eG9nCM5r0f_tzcMVuckIMaXAC8w_omG4l_998vMOp95IiiJlKV3uWy5XHb3csTZeSqJ34csfl7CzzPdi2WStN7A9Ag",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://duelquizz-php/api/user/login",
+			"request": {
+				"url": "http://duelquizz-php/api/user/login",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "a@a.fr",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "aze",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://duelquizz-php/api/user/persistAnswer",
+			"request": {
+				"url": "http://duelquizz-php/api/user/persistAnswer",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9kdWVscXVpenotcGhwIiwiYXVkIjoiaHR0cDpcL1wvZHVlbHF1aXp6LXBocCIsImlhdCI6MTYwOTY4OTE2NCwiZXhwIjoxNjA5Nzc1NTY0LCJlbWFpbCI6ImFAYS5mciJ9.cx8pntQ7-5DkokMd4kYOtXOCr7xfSrbq0fBolZYmoobQEZRsOp9XKz80oLwjPtYDu1INvlR6XeDAzIQFuoopzTkvKQVJ0nwbd9uQE9b3-7sTtyWelkTzwH1YWe4xb8HiYjRK2wZSqBpkBiEUX5EA2NVtgCxzNwvVwjq6rADj8QHQt-upyJFsZXBrYsRjiu2lynhu5tv72UX3APHL_FTTsiV3sLuJVzLiXdHLsSseTUV98Ho4nItX4RHcNRdQ3zKJKz8D_FZhDg4tEzZljNs4p4Grp8jbbbEpGDVXL4bTrVuXfoa-lniKpZRct9Ep6HM0shWvTGRglq40IF3PMG_vLw",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "user",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "isRight",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "quizz",
+							"value": "104",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "question",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://duelquizz-php/api/user/register",
+			"request": {
+				"url": "http://duelquizz-php/api/user/register",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9kdWVscXVpenotcGhwIiwiYXVkIjoiaHR0cDpcL1wvZHVlbHF1aXp6LXBocCIsImlhdCI6MTYwOTYwMDcwOCwiZXhwIjoxNjA5Njg3MTA4LCJlbWFpbCI6ImFAYS5mciJ9.EXUKpTqdco7WsWKSX9EPPZsrrL2WRHxhL9yPWtrDMaF_pFtYTd83LDqPuJ_2fcbrZfQX6-kPg-57FknFAVMd5squ1sUIc5GxRgCHiUrqSIFw_sZWf7ZLDrZm0fZUG1tkKEMC-iH13vdeLlc9ONCdbsSIC5DzDqNiAaCTtD03daLMQDZcP8QrrYZlELu0dyrgdAAzWRREXq37U8Qh5s7LNNb2VNMK_fLKBgMykv75xEOs6HjnpZI8Rw6-lk9cXQ8tSbgQTBv5J4apGDvhRn-F_lGCmkGe4xUuyVSvenLBLwrDCkTKKC8aiEOuYVIe2D6deSmwXYqFRgvgQ5guf-XxcA",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "firstName",
+							"value": "Matthieu",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "FRANCOIS",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "matth.fra@gmail.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "aze",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://duelquizz-php/api/user/themes?returnType=XML",
+			"request": {
+				"url": {
+					"raw": "http://duelquizz-php/api/user/themes?returnType=XML",
+					"protocol": "http",
+					"host": [
+						"duelquizz-php"
+					],
+					"path": [
+						"api",
+						"user",
+						"themes"
+					],
+					"query": [
+						{
+							"key": "returnType",
+							"value": "XML",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9kdWVscXVpenotcGhwIiwiYXVkIjoiaHR0cDpcL1wvZHVlbHF1aXp6LXBocCIsImlhdCI6MTYwOTY5MDY0MywiZXhwIjoxNjA5Nzc3MDQzLCJlbWFpbCI6ImFAYS5mciJ9.MddzRQWst-UPv_kyt0PRQwxJuR-AvgDvx3HRzfqnuV-NkjKhqzuD0lILsFWoLUC9pIJjG7omXyhVrtVN4uiQZFhnfpwvl5q6pmhyWh3Hq_8L5VBrHwC_yd28jevYdAJWHcltusnL88WEIEeEoqg9fbMcv21wmEX1dm4e50aMzL-wcAhGhfokjuHeppJxmsYHnxa1ziq9IKhLB73X0lBtX5VNlgaT_dbOVfiUGM6xX2ZEPOIFBHeiVa4hs0E2eG9nCM5r0f_tzcMVuckIMaXAC8w_omG4l_998vMOp95IiiJlKV3uWy5XHb3csTZeSqJ34csfl7CzzPdi2WStN7A9Ag",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://duelquizz-php/api/user/getPosition/1",
+			"request": {
+				"url": "http://duelquizz-php/api/user/getPosition/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9kdWVscXVpenotcGhwIiwiYXVkIjoiaHR0cDpcL1wvZHVlbHF1aXp6LXBocCIsImlhdCI6MTYwOTY5MDY0MywiZXhwIjoxNjA5Nzc3MDQzLCJlbWFpbCI6ImFAYS5mciJ9.MddzRQWst-UPv_kyt0PRQwxJuR-AvgDvx3HRzfqnuV-NkjKhqzuD0lILsFWoLUC9pIJjG7omXyhVrtVN4uiQZFhnfpwvl5q6pmhyWh3Hq_8L5VBrHwC_yd28jevYdAJWHcltusnL88WEIEeEoqg9fbMcv21wmEX1dm4e50aMzL-wcAhGhfokjuHeppJxmsYHnxa1ziq9IKhLB73X0lBtX5VNlgaT_dbOVfiUGM6xX2ZEPOIFBHeiVa4hs0E2eG9nCM5r0f_tzcMVuckIMaXAC8w_omG4l_998vMOp95IiiJlKV3uWy5XHb3csTZeSqJ34csfl7CzzPdi2WStN7A9Ag",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

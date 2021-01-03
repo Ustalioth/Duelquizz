@@ -16,7 +16,7 @@ class getUserData extends AbstractController
             $user = $this->getUser();
             $serializer = new ObjectSerializer;
 
-            if ($data['returnType'] === "XML") {
+            if (isset($data['returnType']) && $data['returnType'] === "XML") {
                 $this->addHeader('Content-Type', 'application/xml');
                 return $this->render('users/users.xml.twig', ['user' => $user]);
             } else {

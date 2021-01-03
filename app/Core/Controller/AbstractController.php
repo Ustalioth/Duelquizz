@@ -2,10 +2,7 @@
 
 namespace App\Core\Controller;
 
-require '../PHPMailer/src/Exception.php';
-require '../PHPMailer/src/PHPMailer.php';
-require '../PHPMailer/src/SMTP.php';
-require '../vendor/autoload.php';
+
 
 use App\Core\Connection\Connection;
 use App\Core\Template\TemplateEngine;
@@ -17,6 +14,7 @@ use PDO;
 use Psr\Http\Message\ServerRequestInterface;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 
 abstract class AbstractController
 {
