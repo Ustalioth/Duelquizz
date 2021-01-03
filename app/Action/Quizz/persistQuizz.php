@@ -23,7 +23,7 @@ class PersistQuizz extends AbstractController
                 $params = [$data['mode'], $data['user1'], $data['user2']];
             } else {
                 $sth = $connexion->prepare("INSERT INTO quizzes (mode, user1, startAt) VALUES (?,?,NOW())");
-                $params = [$data['mode'], $data['user1'], date("Y-m-d H:i:s")];
+                $params = [$data['mode'], $data['user1']];
             }
 
 
