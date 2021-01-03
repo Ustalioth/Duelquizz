@@ -24,7 +24,7 @@ class PersistAnswer extends AbstractController
             }
 
             if ($sth->execute([$myData['isRight'], $myData['quizz'], $myData['question']])) { //isRight = 0 si mauvaise réponse et isRight = 1 si bonne réponse
-                return 'ok';
+                return json_encode(['ok' => 'ok']);
             } else {
                 return $sth->errorCode();
             }

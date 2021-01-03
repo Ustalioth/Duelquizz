@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Core\Connection\Connection;
 use App\Entity\User;
-use PDO;
 
 class UserManager
 {

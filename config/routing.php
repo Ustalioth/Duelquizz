@@ -14,6 +14,7 @@ use App\Action\Theme\getThemes as getThemes;
 use App\Action\User\User;
 use App\Action\User\UserList;
 use App\Action\User\LoginUser;
+use App\Action\User\PersistUser;
 use App\Action\Quizz\QuizzList;
 use App\Action\Quizz\persistQuizz;
 use App\Action\Question\QuestionList;
@@ -43,6 +44,7 @@ return [
 
     //ROUTES DE L'API
     new Route('/api/user/login', LoginUser::class, ['POST']),
+    new Route('/api/user/register', PersistUser::class, ['POST']),
     new Route('/api/user/themes', getThemes::class, ['GET']),
     new Route('/api/user/persistQuizz', persistQuizz::class, ['POST']),
     new Route('/api/user/getUserData', getUserData::class, ['GET']),
