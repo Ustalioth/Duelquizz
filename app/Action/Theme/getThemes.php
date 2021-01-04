@@ -21,9 +21,9 @@ class getThemes extends AbstractController
             $sth->execute();
             $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
-            if ($data['returnType'] === "XML") {
+            if (isset($data['returnType']) && $data['returnType'] === "XML") {
                 $this->addHeader('Content-Type', 'application/xml');
-                return $this->render('themes/themes.xml.twig', ['themes' => $result]);                
+                return $this->render('themes/themes.xml.twig', ['themes' => $result]);
             } else {
                 $this->addHeader('Content-Type', 'application/json');
                 return json_encode([

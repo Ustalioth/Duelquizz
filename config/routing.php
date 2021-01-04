@@ -16,7 +16,7 @@ use App\Action\User\UserList;
 use App\Action\User\LoginUser;
 use App\Action\User\PersistUser;
 use App\Action\Quizz\QuizzList;
-use App\Action\Quizz\persistQuizz;
+use App\Action\Quizz\PersistQuizz;
 use App\Action\Question\QuestionList;
 use App\Action\Question\Persist as PersistQuestion;
 use App\Action\Question\Delete as DeleteQuestion;

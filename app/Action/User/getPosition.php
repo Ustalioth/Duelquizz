@@ -11,7 +11,7 @@ class getPosition extends AbstractController
     {
         if ($this->getUser() !== null) {
             $connexion = $this->getConnection();
-            $sth = $connexion->prepare("SELECT * FROM users ORDER BY points");
+            $sth = $connexion->prepare("SELECT * FROM users ORDER BY points DESC");
             $sth->execute();
             $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
@@ -23,7 +23,7 @@ class getPosition extends AbstractController
 
             $this->addHeader('Content-Type', 'application/json');
 
-            return json_encode(["position" => $position + 1, "outOf" => count($result)]);
+            return json_encode(["position" => $position + 1, "outOf" => count($result) - 1]);
         } else {
             throw new \LogicException('Token absent!');
         }
