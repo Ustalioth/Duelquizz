@@ -14,6 +14,7 @@ use App\Action\Theme\getThemes as getThemes;
 use App\Action\User\User;
 use App\Action\User\UserList;
 use App\Action\User\LoginUser;
+use App\Action\User\UpdatePoints;
 use App\Action\User\PersistUser;
 use App\Action\Quizz\QuizzList;
 use App\Action\Quizz\PersistQuizz;
@@ -50,4 +51,6 @@ return [
     new Route('/api/user/getUserData', getUserData::class, ['GET']),
     new Route('/api/user/getPosition/{id}', getPosition::class, ['GET']),
     new Route('/api/user/persistAnswer', PersistAnswer::class, ['PATCH']),
+    new Route('/api/user/updatePoints', UpdatePoints::class, ['PATCH']),
+
 ];

@@ -174,6 +174,7 @@ abstract class AbstractController
 
     public function sendMail(User $user)
     {
+        ob_start();
         // Instantiation and passing true enables exceptions
         $mail = new PHPMailer(true);
         try {
@@ -195,6 +196,7 @@ abstract class AbstractController
             $mail->send();
             echo 'Message has been sent'; // redirection page d'accueil//
             //header();
+            ob_get_clean();
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: . $mail->ErrorInfo";
         }
