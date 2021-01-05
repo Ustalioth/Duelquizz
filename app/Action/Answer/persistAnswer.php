@@ -15,6 +15,9 @@ class PersistAnswer extends AbstractController
 
             parse_str($data, $myData);
 
+            var_dump($myData);
+            die;
+
             $myData = array_map('intval', $myData);
 
             if ($myData['user'] === 1) {

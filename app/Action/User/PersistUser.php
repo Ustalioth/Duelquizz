@@ -31,7 +31,7 @@ class PersistUser extends AbstractController
         if ($sth->execute()) {
             $user = $usermanager->findOneByEmail($data['email']);
             $this->sendMail($user);
-            return json_encode(['ok' => 'ok']);
+            return json_encode(['ok' => true]);
         } else {
             return $sth->errorCode();
         }
