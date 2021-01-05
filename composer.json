@@ -9,7 +9,9 @@
         "ext-json": "*",
         "firebase/php-jwt": "^5.2",
         "hoa/websocket": "~3.0",
-        "phpmailer/phpmailer": "^6.2"
+        "phpmailer/phpmailer": "^6.2",
+        "cboden/ratchet": "^0.4.3",
+        "ratchet/pawl": "^0.3.5"
     },
     "autoload": {
         "psr-4": {
