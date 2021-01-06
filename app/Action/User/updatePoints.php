@@ -18,13 +18,13 @@ class UpdatePoints extends AbstractController
 
             $sth = $connexion->prepare("UPDATE users SET points = points + ? WHERE id = ?");
 
+            $this->addHeader('Content-Type', 'application/json');
+
             if ($sth->execute([$data['points'], $user->getId()])) {
                 return true;
             } else {
                 return json_encode(["erreurSQL" => $sth->errorCode()]);
             }
-
-            $this->addHeader('Content-Type', 'application/json');
         } else {
             throw new \LogicException('Token absent!');
         }

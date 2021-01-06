@@ -23,7 +23,7 @@ class getPosition extends AbstractController
 
             $this->addHeader('Content-Type', 'application/json');
 
-            return json_encode(["position" => $position + 1, "outOf" => count($result) - 1]);
+            return json_encode(["position" => $position + 1, "outOf" => count($result)]);
         } else {
             throw new \LogicException('Token absent!');
         }

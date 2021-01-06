@@ -18,6 +18,7 @@ use App\Action\User\UpdatePoints;
 use App\Action\User\PersistUser;
 use App\Action\Quizz\QuizzList;
 use App\Action\Quizz\PersistQuizz;
+use App\Action\Quizz\quizzHandleSecondPlayer;
 use App\Action\Question\QuestionList;
 use App\Action\Question\Persist as PersistQuestion;
 use App\Action\Question\Delete as DeleteQuestion;
@@ -52,5 +53,6 @@ return [
     new Route('/api/user/getPosition/{id}', getPosition::class, ['GET']),
     new Route('/api/user/persistAnswer', PersistAnswer::class, ['PATCH']),
     new Route('/api/user/updatePoints', UpdatePoints::class, ['PATCH']),
+    new Route('/api/user/playerTwoQuizz', quizzHandleSecondPlayer::class, ['PATCH']),
 
 ];

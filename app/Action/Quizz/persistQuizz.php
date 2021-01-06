@@ -54,7 +54,7 @@ class PersistQuizz extends AbstractController
                     }
                 }
             } else {
-                $fail = $sth->errorCode();
+                return json_encode(["fail" => $fail]);
             }
 
             $questions = $QuestionManager->getQuizzQuestions($idQuizz);

@@ -23,7 +23,7 @@ class QuestionManager
     function getQuizzQuestions($id)
     {
         $connexion = Connection::getInstance();
-        $sth = $connexion->prepare("SELECT * FROM questions q INNER JOIN question_quizz as qq ON q.id = qq.question WHERE qq.quizz = ?");
+        $sth = $connexion->prepare("SELECT * FROM questions q LEFT OUTER JOIN question_quizz as qq ON q.id = qq.question WHERE qq.quizz = ?");
         $sth->execute([$id]);
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
