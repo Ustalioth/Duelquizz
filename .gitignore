@@ -2,3 +2,4 @@
 vendor
 var/cache
 config.local.php
+node_modules
