@@ -141,15 +141,14 @@ $websocket->on('message', function (Bucket $bucket) use (
             }
             break;
         case 'informUser1':
-            foreach ($quizzInProgress as $quizz) {
+            foreach ($quizzInProgress as $key => $quizz) {
                 if (getUserIdFromNode($users, $userNode) === $quizz['user2']) {
-                    $websocket->send(
-                        json_encode([
-                            'type' => 'informUser1',
-                            'result' => $data['result'],
-                        ]),
-                        $users[$quizz['user1']]
-                    );
+                    $websocket->send(json_encode([
+                        'type' => 'informUser1',
+                        'result' => $data['result']
+                    ]), $users[$quizz['user1']]);
+
+                    unset($quizzInProgress[$key]);
                 }
             }
             break;
