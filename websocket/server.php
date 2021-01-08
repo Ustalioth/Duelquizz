@@ -31,8 +31,6 @@ $websocket->on('message', function (Bucket $bucket) use (&$users, $websocket, &$
         case 'quizz_duel_start':
             // il y a un utilisateur en attente de jouer
             if ($userWaiting !== null) {
-                echo $userWaiting . "\n";
-                echo getUserIdFromNode($users, $userNode) . "\n";
                 if ($userWaiting === getUserIdFromNode($users, $userNode)) {
                     $websocket->send(json_encode([
                         'type' => 'with_yourself',
@@ -122,21 +120,21 @@ $websocket->on('close', function (Bucket $bucket) use (&$users, &$quizzInProgres
             if ($userId === $userWaiting) {
                 $userWaiting = null;
             }
-            $quizzAndKey = findInQuizz($quizzInProgress, $userId);
+            $quizzAndKey = findQuizzWithUser($quizzInProgress, $userId);
 
             if ($quizzAndKey !== null) {
                 if ($quizzAndKey['quizz']['user1'] === $userId || $quizzAndKey['quizz']['user2'] === $userId) {
-
+                    echo "here avant \n";
                     if ($quizzAndKey['quizz']['user1'] === $userId) {
                         $websocket->send(json_encode([
                             'type' => 'disconnected',
                         ]), $users[$quizzAndKey['quizz']['user2']]);
                     } else {
-
                         $websocket->send(json_encode([
                             'type' => 'disconnected',
                         ]), $users[$quizzAndKey['quizz']['user1']]);
                     }
+                    echo "here après \n";
                     unset($quizzInProgress[$quizzAndKey['key']]);
                 }
             }
@@ -144,7 +142,7 @@ $websocket->on('close', function (Bucket $bucket) use (&$users, &$quizzInProgres
     }
 });
 
-function findInQuizz($quizzInProgress, $userId)
+function findQuizzWithUser($quizzInProgress, $userId)
 {
     foreach ($quizzInProgress as $key => $quizz) {
         if ($quizz['user1'] === $userId || $quizz['user2'] === $userId) {
