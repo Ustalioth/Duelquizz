@@ -18,7 +18,7 @@ class PersistUser extends AbstractController
         $data = $request->getParsedBody();
 
         if ($usermanager->findOneByEmail($data['email']) !== null) {
-            throw new Error("Un compte correspond déjà à cette adresse mail");
+            return json_encode(["error" => "Already exists"]);
         }
 
         $sth = $connexion->prepare("INSERT INTO users (firstName, lastName, email, registerAt, password) VALUES (:firstName, :lastName, :email, NOW(), :password)");
