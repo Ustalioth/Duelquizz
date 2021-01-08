@@ -150,21 +150,23 @@ $websocket->on('message', function (Bucket $bucket) use (
                 }
             }
             break;
-        case 'stream':
-            $userId = getUserIdFromNode($users, $userNode);
-            $quizzAndKey = findInQuizz($quizzInProgress, $userId);
+            // case 'stream':
+            //     $userId = getUserIdFromNode($users, $userNode);
+            //     $quizzAndKey = findQuizzWithUser($quizzInProgress, $userId);
+            //     echo "stream";
 
-            if ($quizzAndKey['quizz']['user1'] === $userId) {
-                $websocket->send(json_encode([
-                    'type' => 'stream',
-                    'stream' => $data['stream']
-                ]), $users[$quizzAndKey['quizz']['user2']]);
-            } else {
-                $websocket->send(json_encode([
-                    'type' => 'stream',
-                    'stream' => $data['stream']
-                ]), $users[$quizzAndKey['quizz']['user1']]);
-            }
+            //     if ($quizzAndKey['quizz']['user1'] === $userId) {
+            //         $websocket->send(json_encode([
+            //             'type' => 'stream',
+            //             'stream' => $data['stream']
+            //         ]), $users[$quizzAndKey['quizz']['user2']]);
+            //     } else {
+            //         $websocket->send(json_encode([
+            //             'type' => 'stream',
+            //             'stream' => $data['stream']
+            //         ]), $users[$quizzAndKey['quizz']['user1']]);
+            //     }
+            //     break;
     }
 });
 
@@ -194,19 +196,25 @@ $websocket->on('close', function (Bucket $bucket) use (
                     $quizzAndKey['quizz']['user1'] === $userId ||
                     $quizzAndKey['quizz']['user2'] === $userId
                 ) {
+                    echo $userId . "\n";
                     if ($quizzAndKey['quizz']['user1'] === $userId) {
-                        $websocket->send(
-                            json_encode([
-                                'type' => 'disconnected',
-                            ]),
-                            $users[$quizzAndKey['quizz']['user2']]
-                        );
+                        try {
+                            $websocket->send(
+                                json_encode([
+                                    'type' => 'disconnected',
+                                ]),
+                                $users[$quizzAndKey['quizz']['user2']]
+                            );
+                        } catch (\Throwable $e) {
+                        }
                     } else {
-                        $websocket->send(json_encode([
-                            'type' => 'disconnected',
-                        ]), $users[$quizzAndKey['quizz']['user1']]);
+                        try {
+                            $websocket->send(json_encode([
+                                'type' => 'disconnected',
+                            ]), $users[$quizzAndKey['quizz']['user1']]);
+                        } catch (\Throwable $e) {
+                        }
                     }
-                    echo "here après \n";
                     unset($quizzInProgress[$quizzAndKey['key']]);
                 }
             }
