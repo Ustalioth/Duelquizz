@@ -18,6 +18,7 @@ class PersistQuizz extends AbstractController
 
             $fail = null;
 
+
             if (isset($data['user2'])) {
                 $sth = $connexion->prepare("INSERT INTO quizzes (mode, user1, user2, startAt) VALUES (?,?,?,NOW())");
                 $params = [$data['mode'], $data['user1'], $data['user2']];
@@ -54,6 +55,7 @@ class PersistQuizz extends AbstractController
                     }
                 }
             } else {
+                $fail = $sth->errorCode();
                 return json_encode(["fail" => $fail]);
             }
 
